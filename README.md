@@ -3,6 +3,8 @@ gtmetrix
 
 Node.js module for the GTmetrix API to run and access tests.
 
+[![Build Status](https://travis-ci.org/fvdm/nodejs-gtmetrix.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-gtmetrix)
+
 * [Node.js](https://nodejs.org)
 * [GTMetrix](https://gtmetrix.com)
 * [API documentation](https://gtmetrix.com/api/)
