@@ -1,7 +1,7 @@
 gtmetrix
 ========
 
-Node.js module to run and access tests with the GTmetrix API.
+Node.js module for the GTmetrix API to run and access tests.
 
 * [Node.js](https://nodejs.org)
 * [GTMetrix](https://gtmetrix.com)
