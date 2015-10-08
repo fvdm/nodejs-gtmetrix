@@ -1,0 +1,41 @@
+{
+  "author": {
+    "name":                "Franklin van de Meent",
+    "email":               "fr@nkl.in",
+    "url":                 "http://frankl.in"
+  },
+  "name":                  "gtmetrix",
+  "description":           "Run and access tests with the GTmetrix API.",
+  "version":               "1.0.0",
+  "repository": {
+    "type":                "git",
+    "url":                 "git://github.com/fvdm/nodejs-gtmetrix.git"
+  },
+  "bugs": {
+    "url":                 "https://github.com/fvdm/nodejs-gtmetrix/issues"
+  },
+  "main":                  "index.js",
+  "dependencies": {
+    "httpreq":             "0.4.x"
+  },
+  "devDependencies":       {},
+  "optionalDependencies":  {},
+  "engines": {
+    "node":                ">=0.8.0"
+  },
+  "keywords": [
+    "api",
+    "gtmetrix",
+    "meassure",
+    "yslow",
+    "pagespeed",
+    "screenshot",
+    "website",
+    "performance",
+    "metrics"
+  ],
+  "license":               "Unlicense",
+  "scripts": {
+    "test":                "node test.js"
+  }
+}
