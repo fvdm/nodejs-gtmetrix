@@ -22,6 +22,13 @@ function talk (props, callback) {
     var data = res && res.body || null;
     var error = null;
 
+    if (err) {
+      error = new Error ('request failed');
+      error.error = err;
+      callback (error);
+      return;
+    }
+
     if (size && props.binary && type.match (/\/(pdf|jpeg|tar)$/)) {
       callback (null, data);
       return;
