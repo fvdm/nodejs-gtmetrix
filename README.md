@@ -82,6 +82,73 @@ invalid response | Can't process response | `error` `statusCode` `contentType`
 API error        | API returned an error  | `error` `statusCode` `contentType`
 
 
+Usage
+-----
+
+### test.create
+**( params, callback )**
+
+Run a test.
+
+argument | type     | required | description
+:--------|:---------|:---------|:-----------------
+params   | object   | yes      | Test settings
+callback | function | yes      | Callback function
+
+
+### test.get
+**( testId, [resource], callback )**
+
+Get details and status about a test.
+
+argument | type     | required | description
+:--------|:---------|:---------|:------------------------
+testId   | string   | yes      | Test `id` to look up
+resource | string   | no       | Retrieve a test resource
+callback | function | yes      | Callback function
+
+
+### locations.list
+**( callback )**
+
+Get a list of available test locations.
+
+argument | type     | required | description
+:--------|:---------|:---------|:-----------------
+callback | function | yes      | Callback function
+
+
+### browsers.list
+**( callback )**
+
+Get a list of available test browsers.
+
+argument | type     | required | description
+:--------|:---------|:---------|:-----------------
+callback | function | yes      | Callback function
+
+
+### browsers.get
+**( browserId, callback )**
+
+Get details about a test browser.
+
+argument  | type     | required | description
+:---------|:---------|:---------|:-----------------------
+browserId | number   | yes      | Browser `id` to look up
+callback  | function | yes      | Callback function
+
+
+### account.status
+**( callback )**
+
+Information about your account.
+
+argument | type     | required | description
+:--------|:---------|:---------|:-----------------
+callback | function | yes      | Callback function
+
+
 License
 -------
 
