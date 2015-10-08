@@ -71,7 +71,7 @@ Error handling
 --------------
 
 The methods require a callback _function_ argument to process the results.
-This `callback` received two arguments: `err` and `data`, as per industry standards.
+This `callback` receives two arguments: `err` and `data`, as per industry standards.
 
 When an error occurs `err` is an instance of `Error` with additional properties.
 
