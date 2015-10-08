@@ -142,7 +142,7 @@ gtmetrix.test.get ('Ao0AYQbz', console.log);
 ```js
 var fs = require ('fs');
 
-gtmetrix.test.get ('Ao0AYQbz', 'screenshot', function (err, res) {
+gtmetrix.test.get ('Ao0AYQbz', 'screenshot', function (err, data) {
   if (err) { return console.log (err); }
 
   // Store on disk
@@ -181,7 +181,7 @@ callback | function | yes      | Callback function
 
 
 ```js
-gtmetrix.browser.list (console.log);
+gtmetrix.browsers.list (console.log);
 ```
 
 
@@ -199,7 +199,7 @@ callback  | function | yes      | Callback function
 
 
 ```js
-gtmetrix.browser.get (3, console.log);
+gtmetrix.browsers.get (3, console.log);
 ```
 
 
