@@ -91,7 +91,7 @@ module.exports = function (props) {
     },
     browsers: {
       list: function (callback) {
-        talk ({ method: 'GET', path: 'browsers' + testId }, callback);
+        talk ({ method: 'GET', path: 'browsers' }, callback);
       },
       get: function (browserId, callback) {
         talk ({ method: 'GET', path: 'browsers/' + browserId }, callback);
