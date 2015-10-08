@@ -69,19 +69,19 @@ module.exports = function (props) {
         talk ({ method: 'POST', path: 'test', params: params }, callback);
       },
       get: function (testId, resource, callback) {
-        var props = {
+        var params = {
           method: 'GET',
           path: 'test/' + testId
         };
 
         if (typeof resource === 'string') {
-          props.path += '/' + resource;
-          props.binary = resource.match (/(screenshot)/);
+          params.path += '/' + resource;
+          params.binary = resource.match (/(screenshot)/);
         } else {
           callback = resource;
         }
 
-        talk (props, callback);
+        talk (params, callback);
       }
     },
     locations: {
