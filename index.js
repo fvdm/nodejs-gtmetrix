@@ -8,7 +8,7 @@ var config = {
 function talk (props, callback) {
   var options = {
     url: 'https://gtmetrix.com/api/0.1/' + props.path,
-    parameters: props.fields || null,
+    parameters: props.params || null,
     method: props.method || 'GET',
     timeout: config.timeout || 5000,
     auth: config.email + ':' + config.apikey,
