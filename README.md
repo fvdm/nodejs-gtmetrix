@@ -67,6 +67,21 @@ var gtmetrix = require ('gtmetrix') ({
 ```
 
 
+Error handling
+--------------
+
+The methods require a callback _function_ argument to process the results.
+This `callback` received two arguments: `err` and `data`, as per industry standards.
+
+When an error occurs `err` is an instance of `Error` with additional properties.
+
+message          | description            | properties
+:----------------|:-----------------------|:----------------------------------
+request failed   | Request cannot be made | `error`
+invalid response | Can't process response | `error` `statusCode` `contentType`
+API error        | API returned an error  | `error` `statusCode` `contentType`
+
+
 License
 -------
 
