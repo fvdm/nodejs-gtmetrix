@@ -2,7 +2,7 @@
   "author": {
     "name":                "Franklin van de Meent",
     "email":               "fr@nkl.in",
-    "url":                 "http://frankl.in"
+    "url":                 "https://frankl.in"
   },
   "name":                  "gtmetrix",
   "description":           "Run and access tests with the GTmetrix API.",
@@ -24,15 +24,15 @@
     "node":                ">=0.8.0"
   },
   "keywords": [
-    "api",
     "gtmetrix",
+    "api",
     "meassure",
-    "yslow",
+    "metrics",
     "pagespeed",
+    "performance",
     "screenshot",
     "website",
-    "performance",
-    "metrics"
+    "yslow"
   ],
   "license":               "Unlicense",
   "scripts": {
