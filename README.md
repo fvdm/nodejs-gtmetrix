@@ -1,7 +1,7 @@
 gtmetrix
 ========
 
-Access GTmetrix API methods with node.js
+Node.js module to run and access tests with the GTmetrix API.
 
 * [Node.js](https://nodejs.org)
 * [GTMetrix](https://gtmetrix.com)
@@ -82,8 +82,8 @@ invalid response | Can't process response | `error` `statusCode` `contentType`
 API error        | API returned an error  | `error` `statusCode` `contentType`
 
 
-Usage
------
+Methods
+-------
 
 ### test.create
 **( params, callback )**
@@ -95,17 +95,58 @@ argument | type     | required | description
 params   | object   | yes      | Test settings
 callback | function | yes      | Callback function
 
+[API documentation](https://gtmetrix.com/api/#api-test-start)
+
+
+```js
+// Run test from London with Google Chrome
+var test = {
+  url: 'http://example.net/',
+  location: 2,
+  browser: 3
+};
+
+gtmetrix.test.create (test, console.log);
+```
+
 
 ### test.get
 **( testId, [resource], callback )**
 
-Get details and status about a test.
+Get details about a test or one of its resources.
+
+When you specify a binary resource, i.e. `screenshot`,
+the callback `data` will be a _Buffer_ instance, so you can
+post-process the binary data however you like. See example below.
 
 argument | type     | required | description
 :--------|:---------|:---------|:------------------------
 testId   | string   | yes      | Test `id` to look up
 resource | string   | no       | Retrieve a test resource
 callback | function | yes      | Callback function
+
+[API documentation](https://gtmetrix.com/api/#api-test-state)
+
+
+##### Test details
+
+```js
+gtmetrix.test.get ('Ao0AYQbz', console.log);
+```
+
+
+##### Retrieve screenshot
+
+```js
+var fs = require ('fs');
+
+gtmetrix.test.get ('Ao0AYQbz', 'screenshot', function (err, res) {
+  if (err) { return console.log (err); }
+
+  // Store on disk
+  fs.writeFile (__dirname + '/screenshot.jpg', data, console.log);
+});
+```
 
 
 ### locations.list
@@ -117,6 +158,13 @@ argument | type     | required | description
 :--------|:---------|:---------|:-----------------
 callback | function | yes      | Callback function
 
+[API documentation](https://gtmetrix.com/api/#api-locations)
+
+
+```js
+gtmetrix.locations.list (console.log);
+```
+
 
 ### browsers.list
 **( callback )**
@@ -126,6 +174,13 @@ Get a list of available test browsers.
 argument | type     | required | description
 :--------|:---------|:---------|:-----------------
 callback | function | yes      | Callback function
+
+[API documentation](https://gtmetrix.com/api/#api-browsers)
+
+
+```js
+gtmetrix.browser.list (console.log);
+```
 
 
 ### browsers.get
@@ -138,6 +193,13 @@ argument  | type     | required | description
 browserId | number   | yes      | Browser `id` to look up
 callback  | function | yes      | Callback function
 
+[API documentation](https://gtmetrix.com/api/#api-browsers-details)
+
+
+```js
+gtmetrix.browser.get (3, console.log);
+```
+
 
 ### account.status
 **( callback )**
@@ -147,6 +209,13 @@ Information about your account.
 argument | type     | required | description
 :--------|:---------|:---------|:-----------------
 callback | function | yes      | Callback function
+
+[API documentation](https://gtmetrix.com/api/#api-status)
+
+
+```js
+gtmetrix.account.status (console.log);
+```
 
 
 License
