@@ -10,6 +10,9 @@ function talk (props, callback) {
     url: 'https://gtmetrix.com/api/0.1/' + props.path,
     parameters: props.params || null,
     method: props.method || 'GET',
+    headers: {
+      'User-Agent': 'gtmetrix.js (https://www.npmjs.com/package/gtmetrix)'
+    },
     timeout: config.timeout || 5000,
     auth: config.email + ':' + config.apikey,
     binary: props.binary || false
