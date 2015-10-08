@@ -35,6 +35,38 @@ gtmetrix.test.create (test, console.log);
 ```
 
 
+Installation
+------------
+
+`npm install gtmetrix`
+
+You need an account at GTmetrix to get an API key.
+The API key can be found [here](https://gtmetrix.com/api/#api-details) when you are logged in.
+
+
+Configuration
+-------------
+
+The setup function takes an _object_ with these settings.
+
+name    | type    | required | default | description
+:-------|:--------|:---------|:--------|:--------------------
+email   | string  | yes      |         | Your account email
+apikey  | string  | yes      |         | Your account API key
+timeout | integer | no       | 5000    | Wait timeout in ms
+
+
+##### Example
+
+```js
+var gtmetrix = require ('gtmetrix') ({
+  email: 'your@mail.tld',
+  apikey: 'abc123',
+  timeout: 10000
+});
+```
+
+
 License
 -------
 
