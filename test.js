@@ -24,8 +24,8 @@ var app = require (path.join (__dirname, path.sep)) ({
 
 var cache = {
   url: 'http://example.net/',
-  location: location || 2,
-  browser: browser || 3
+  location: location,
+  browser: browser
 };
 
 var pkg = require (path.join (__dirname, 'package.json'));
