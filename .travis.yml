@@ -1,5 +1,4 @@
 sudo: false
-script: npm -g install eslint && eslint .
 language: node_js
 node_js:
 - '5'
