@@ -5,7 +5,7 @@
     "url": "https://frankl.in"
   },
   "name": "gtmetrix",
-  "description": "Run and access tests with the GTmetrix API.",
+  "description": "Run and access tests with the GTmetrix API to measure website performance",
   "version": "1.0.1",
   "repository": {
     "type": "git",
