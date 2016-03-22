@@ -1,27 +1,27 @@
 {
   "author": {
-    "name":                "Franklin van de Meent",
-    "email":               "fr@nkl.in",
-    "url":                 "https://frankl.in"
+    "name": "Franklin van de Meent",
+    "email": "fr@nkl.in",
+    "url": "https://frankl.in"
   },
-  "name":                  "gtmetrix",
-  "description":           "Run and access tests with the GTmetrix API.",
-  "version":               "1.0.1",
+  "name": "gtmetrix",
+  "description": "Run and access tests with the GTmetrix API.",
+  "version": "1.0.1",
   "repository": {
-    "type":                "git",
-    "url":                 "git://github.com/fvdm/nodejs-gtmetrix.git"
+    "type": "git",
+    "url": "git://github.com/fvdm/nodejs-gtmetrix.git"
   },
   "bugs": {
-    "url":                 "https://github.com/fvdm/nodejs-gtmetrix/issues"
+    "url": "https://github.com/fvdm/nodejs-gtmetrix/issues"
   },
-  "main":                  "index.js",
+  "main": "index.js",
   "dependencies": {
-    "httpreq":             "0.4.x"
+    "httpreq": "^0.4.16"
   },
-  "devDependencies":       {},
-  "optionalDependencies":  {},
+  "devDependencies": {},
+  "optionalDependencies": {},
   "engines": {
-    "node":                ">=0.8.0"
+    "node": ">=0.12.0"
   },
   "keywords": [
     "gtmetrix",
@@ -34,8 +34,8 @@
     "website",
     "yslow"
   ],
-  "license":               "Unlicense",
+  "license": "Unlicense",
   "scripts": {
-    "test":                "node test.js"
+    "test": "node test.js"
   }
 }
