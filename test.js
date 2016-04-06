@@ -106,4 +106,4 @@ dotest.add ('test.get resource', function () {
 
 
 // Start the tests
-dotest.run ();
+dotest.run (1000);
