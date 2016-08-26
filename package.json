@@ -21,7 +21,6 @@
   "devDependencies": {
     "dotest": "^1.13.0"
   },
-  "optionalDependencies": {},
   "engines": {
     "node": ">=4.0.0"
   },
