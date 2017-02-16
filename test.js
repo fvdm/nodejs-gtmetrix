@@ -98,7 +98,7 @@ dotest.add ('test.get - with polling', function (test) {
   gtmetrix.test.get (cache.test.test_id, 5000, function (err, data) {
     test (err)
       .isObject ('fail', 'data', data)
-      .isRegexpMatch ('fail', 'data.state', data && data.state, /^(started|queued)$/)
+      .isExactly ('fail', 'data.state', data && data.state, 'completed')
       .done ();
   });
 });
