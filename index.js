@@ -9,6 +9,26 @@ var config = {
 
 
 /**
+ * Callback an error
+ *
+ * @param msg {string} - Error.message
+ * @param err {mixed} - Error.error
+ * @param code {number|null} - Error.statusCode
+ * @param type {string|null} - Error.contentType
+ * @return {Error}
+ */
+
+function doError (msg, err, code, type) {
+  var error = new Error (msg);
+
+  error.error = err;
+  error.statusCode = code;
+  error.contentType = type;
+  return error;
+}
+
+
+/**
  * Process API response
  *
  * @callback callback
@@ -27,8 +47,7 @@ function apiResponse (options, err, res, callback) {
   var error = null;
 
   if (err) {
-    error = new Error ('request failed');
-    error.error = err;
+    error = doError ('request failed', err, null, null);
     callback (error);
     return;
   }
@@ -41,18 +60,12 @@ function apiResponse (options, err, res, callback) {
   try {
     data = JSON.parse (data);
   } catch (e) {
-    error = new Error ('invalid response');
-    error.statusCode = code;
-    error.contentType = type;
-    error.error = e;
+    error = doError ('invalid response', e, code, type);
     data = null;
   }
 
   if (data && data.error) {
-    error = new Error ('API error');
-    error.statusCode = code;
-    error.contentType = type;
-    error.error = data.error;
+    error = doError ('API error', data.error, code, type);
     data = null;
   }
 
