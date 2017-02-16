@@ -57,7 +57,7 @@ dotest.add ('browsers.get', function () {
   gtmetrix.browsers.get (3, function (err, data) {
     dotest.test (err)
       .isObject ('fail', 'data', data)
-      .isExactly ('warn', 'data.id', data && data.id, '3')
+      .isExactly ('warn', 'data.id', data && data.id, 3)
       .done ();
   });
 });
