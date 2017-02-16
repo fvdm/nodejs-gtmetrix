@@ -1,3 +1,19 @@
+### 1.2.0 (2017-2-16)
+
+##### Documentation Changes
+
+* **readme:** Add test.get polling argument #9 ([52887ff6](https://github.com/fvdm/nodejs-gtmetrix/commit/52887ff62e37271249bded78447cdff8d1c848ca))
+
+##### New Features
+
+* **test.get:** Add auto polling argument ([8eed2378](https://github.com/fvdm/nodejs-gtmetrix/commit/8eed23787a6e4597d98ac6981f24e26f4844f32c))
+
+##### Tests
+
+* **style:** Use dotest test() function ([634beb54](https://github.com/fvdm/nodejs-gtmetrix/commit/634beb54ee693bd2a954a64eab6db4f73c416272))
+* **fix:** Fixed browser.get data.id type ([9d163261](https://github.com/fvdm/nodejs-gtmetrix/commit/9d1632610d69d506ba11e02b2b99a4c13f640b95))
+* **main:** Add polling test ([8af63f88](https://github.com/fvdm/nodejs-gtmetrix/commit/8af63f88f25f07577d7fca7635deafb0bbab5955))
+
 #### 1.1.5 (2017-2-16)
 
 ##### Documentation Changes
