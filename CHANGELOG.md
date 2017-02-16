@@ -1,3 +1,26 @@
+#### 1.2.1 (2017-2-16)
+
+##### Chores
+
+* **develop:** Add .editorconfig file ([b9f433b7](https://github.com/fvdm/nodejs-gtmetrix/commit/b9f433b7cac2b55e274a1adb02fb13e6f1975e8e))
+* **package:** Update dev dep ([6015cbed](https://github.com/fvdm/nodejs-gtmetrix/commit/6015cbed15bafba6abb17900ecb5a6485632c5af))
+
+##### Bug Fixes
+
+* **test.get:** Fix binary-mode on more resources ([e3817e23](https://github.com/fvdm/nodejs-gtmetrix/commit/e3817e23de41d0cce7db5ba868cb0ff510a69d06))
+
+##### Refactors
+
+* **test.get:** Cleaner loop condition ([3291bf6c](https://github.com/fvdm/nodejs-gtmetrix/commit/3291bf6c8588cd32563723a0e85a184af9d86cd9))
+
+##### Tests
+
+* **config:**
+  * Update eslint config to ES6 ([b1506a97](https://github.com/fvdm/nodejs-gtmetrix/commit/b1506a974bd87ffd45a174d48f716c5820debb44))
+  * bitHound max 500 lines ([8ddd3b7b](https://github.com/fvdm/nodejs-gtmetrix/commit/8ddd3b7b19213ee479a6cf36792cdc10dbc9e6a5))
+* **main:** Add API error test with polling ([3af45111](https://github.com/fvdm/nodejs-gtmetrix/commit/3af45111eba00829cd6e8ef2c8355aee68d2fdc1))
+* **fix:** Don’t overwrite cache with data ([3460c768](https://github.com/fvdm/nodejs-gtmetrix/commit/3460c768a756db76deefb5c25bc57322ce4bebcc))
+
 ### 1.2.0 (2017-2-16)
 
 ##### Documentation Changes
