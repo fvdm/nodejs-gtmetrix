@@ -1,3 +1,9 @@
+#### 1.2.2 (2017-2-16)
+
+##### Tests
+
+* **fix:** Fix test.get data.state check ([49b20bfd](https://github.com/fvdm/nodejs-gtmetrix/commit/49b20bfdd6ca9cd80034300e2528999c6d929a2c))
+
 #### 1.2.1 (2017-2-16)
 
 ##### Chores
