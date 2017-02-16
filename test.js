@@ -33,18 +33,18 @@ var cache = {
 };
 
 
-dotest.add ('account.status', function () {
+dotest.add ('account.status', function (test) {
   gtmetrix.account.status (function (err, data) {
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .done ();
   });
 });
 
 
-dotest.add ('browsers.list', function () {
+dotest.add ('browsers.list', function (test) {
   gtmetrix.browsers.list (function (err, data) {
-    dotest.test (err)
+    test (err)
       .isArray ('fail', 'data', data)
       .isNotEmpty ('fail', 'data', data)
       .isObject ('warn', 'data[0]', data && data [0])
@@ -53,9 +53,9 @@ dotest.add ('browsers.list', function () {
 });
 
 
-dotest.add ('browsers.get', function () {
+dotest.add ('browsers.get', function (test) {
   gtmetrix.browsers.get (3, function (err, data) {
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .isExactly ('warn', 'data.id', data && data.id, 3)
       .done ();
@@ -63,9 +63,9 @@ dotest.add ('browsers.get', function () {
 });
 
 
-dotest.add ('locations.list', function () {
+dotest.add ('locations.list', function (test) {
   gtmetrix.locations.list (function (err, data) {
-    dotest.test (err)
+    test (err)
       .isArray ('fail', 'data', data)
       .isNotEmpty ('fail', 'data', data)
       .isObject ('warn', 'data[0]', data && data [0])
@@ -74,19 +74,19 @@ dotest.add ('locations.list', function () {
 });
 
 
-dotest.add ('test.create', function () {
+dotest.add ('test.create', function (test) {
   gtmetrix.test.create (cache, function (err, data) {
     cache = data;
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .done ();
   });
 });
 
 
-dotest.add ('test.get - without polling', function () {
+dotest.add ('test.get - without polling', function (test) {
   gtmetrix.test.get (cache.test_id, function (err, data) {
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .isString ('warn', 'data.state', data && data.state)
       .done ();
@@ -94,9 +94,9 @@ dotest.add ('test.get - without polling', function () {
 });
 
 
-dotest.add ('test.get - with polling', function () {
+dotest.add ('test.get - with polling', function (test) {
   gtmetrix.test.get (cache.test_id, 5000, function (err, data) {
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .isExactly ('fail', 'data.state', data && data.state, 'completed')
       .done ();
@@ -104,16 +104,16 @@ dotest.add ('test.get - with polling', function () {
 });
 
 
-dotest.add ('test.get resource - binary with polling', function () {
+dotest.add ('test.get resource - binary with polling', function (test) {
   gtmetrix.test.get (cache.test_id, 'screenshot', 5000, function (err, data) {
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .done ();
   });
 });
 
 
-dotest.add ('Error: request failed (timeout)', function () {
+dotest.add ('Error: request failed (timeout)', function (test) {
   var tmp = app ({
     email: email,
     apikey: apikey,
@@ -123,7 +123,7 @@ dotest.add ('Error: request failed (timeout)', function () {
   tmp.account.status (function (err, data) {
     var error = err && err.error;
 
-    dotest.test ()
+    test ()
       .isError ('fail', 'err', err)
       .isExactly ('fail', 'err.message', err && err.message, 'request failed')
       .isError ('fail', 'err.error', error)
