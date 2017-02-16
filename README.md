@@ -5,7 +5,7 @@ Node.js module for the GTmetrix API to run and access tests.
 
 [![npm](https://img.shields.io/npm/v/gtmetrix.svg?maxAge=3600)](https://github.com/fvdm/nodejs-grmetrix/blob/master/CHANGELOG.md)
 [![Build Status](https://travis-ci.org/fvdm/nodejs-gtmetrix.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-gtmetrix)
-[![Coverage Status](https://coveralls.io/repos/github/fvdm/nodejs-requestbin/badge.svg?branch=develop)](https://coveralls.io/github/fvdm/nodejs-requestbin?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/fvdm/nodejs-requestbin/badge.svg?branch=master)](https://coveralls.io/github/fvdm/nodejs-requestbin?branch=master)
 [![Dependencies](https://www.bithound.io/github/fvdm/nodejs-gtmetrix/badges/dependencies.svg)](https://www.bithound.io/github/fvdm/nodejs-gtmetrix/develop/dependencies/npm)
 [![Code Quality](https://www.bithound.io/github/fvdm/nodejs-requestbin/badges/code.svg)](https://www.bithound.io/github/fvdm/nodejs-requestbin)
 
