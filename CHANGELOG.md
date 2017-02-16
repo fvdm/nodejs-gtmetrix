@@ -1,3 +1,9 @@
+#### 1.1.5 (2017-2-16)
+
+##### Documentation Changes
+
+* **badges:** Fix typo in repo name ([aea0385b](https://github.com/fvdm/nodejs-gtmetrix/commit/aea0385b4d86c5eb960dee7140c42a6c20aad0ac))
+
 #### 1.1.4 (2017-2-16)
 
 ##### Documentation Changes
