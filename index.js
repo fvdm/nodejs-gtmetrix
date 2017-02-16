@@ -210,7 +210,7 @@ function testGet (testId, resource, polling, callback) {
           }
 
           // No error, non-binary, complete = ok
-          if (!pErr && !props.binary && (pData.state === 'completed' || pData.state === 'error')) {
+          if (!pErr && !props.binary && pData.state !== 'started' && pData.state !== 'queued') {
             clearInterval (retryInterval);
             callback (null, pData);
           }
