@@ -134,6 +134,17 @@ dotest.add ('Error: API error - without polling', function (test) {
 });
 
 
+dotest.add ('Error: API error - resource with default polling', function (test) {
+  gtmetrix.test.get ('0', 'yslow', true, function (err, data) {
+    test ()
+      .isError ('fail', 'err', err)
+      .isExactly ('fail', 'err.message', err && err.message, 'API error')
+      .isUndefined ('fail', 'data', data)
+      .done ();
+  });
+});
+
+
 dotest.add ('Error: request failed (timeout)', function (test) {
   var tmp = app ({
     email: email,
