@@ -105,5 +105,26 @@ dotest.add ('test.get resource', function () {
 });
 
 
+dotest.add ('Error: request failed (timeout)', function () {
+  var tmp = app ({
+    email: email,
+    apikey: apikey,
+    timeout: 1
+  });
+
+  tmp.account.status (function (err, data) {
+    var error = err && err.error;
+
+    dotest.test ()
+      .isError ('fail', 'err', err)
+      .isExactly ('fail', 'err.message', err && err.message, 'request failed')
+      .isError ('fail', 'err.error', error)
+      .isExactly ('warn', 'err.error.code', error && error.code, 'TIMEOUT')
+      .isUndefined ('fail', 'data', data)
+      .done ();
+  });
+});
+
+
 // Start the tests
 dotest.run (1000);
