@@ -94,7 +94,7 @@ function apiRequest (props, callback) {
     headers: {
       'User-Agent': 'gtmetrix.js (https://www.npmjs.com/package/gtmetrix)'
     },
-    timeout: config.timeout || 5000,
+    timeout: config.timeout,
     auth: config.email + ':' + config.apikey,
     binary: props.binary || false
   };
