@@ -1,3 +1,11 @@
+#### 1.1.4 (2017-2-16)
+
+##### Documentation Changes
+
+* **badges:**
+  * Fix wrong copy/paste ([47b9c630](https://github.com/fvdm/nodejs-gtmetrix/commit/47b9c6302fcfa3e5e7255cdf2cbbd75b999dac16))
+  * Fix coverage status branch ([f6ef03f1](https://github.com/fvdm/nodejs-gtmetrix/commit/f6ef03f1083c56c30bc4211dbfa0941269385f71))
+
 #### 1.1.3 (2017-2-16)
 
 ##### Refactors
