@@ -129,26 +129,95 @@ function testCreate (params, callback) {
  * Get test result
  *
  * @callback callback
- * @param testId {object}
- * @param [resouce] {string} - Resource to get, i.e. `screenshot`
+ * @param testId {string} - Test ID
+ * @param [resource] {string} - Resource to get, i.e. `screenshot`
+ * @param [polling] {number} - Poll state until completion, in ms
  * @param callback {function} - `(err, data)`
  * @return {void}
  */
 
-function testGet (testId, resource, callback) {
+function testGet (testId, resource, polling, callback) {
   var props = {
     method: 'GET',
     path: 'test/' + testId
   };
 
-  if (typeof resource === 'string') {
-    props.path += '/' + resource;
-    props.binary = resource.match (/(screenshot)/);
-  } else {
-    callback = resource;
+  if (typeof polling === 'function') {
+    callback = polling;
+    polling = null;
   }
 
-  apiRequest (props, callback);
+  switch (typeof resource) {
+    case 'function':
+      callback = resource;
+      resource = null;
+      polling = null;
+      break;
+
+    case 'number':
+      polling = resource;
+      resource = null;
+      break;
+
+    case 'string':
+      props.path += '/' + resource;
+      props.binary = !!~resource.match (/screenshot/);
+      break;
+
+    default:
+      break;
+  }
+
+  apiRequest (props, function (err, data) {
+    var retryInterval;
+
+    if (err && !polling) {
+      callback (err);
+      return;
+    }
+
+    if (!polling) {
+      callback (null, data);
+      return;
+    }
+
+    if (polling === true) {
+      polling = 5000;
+    }
+
+    if (typeof polling === 'number') {
+      retryInterval = setInterval (function () {
+        testGet (testId, resource, function (pErr, pData) {
+          // Error, non-binary = fail
+          if (pErr && !props.binary) {
+            clearInterval (retryInterval);
+            callback (pErr);
+            return;
+          }
+
+          // No error, binary expected = ok
+          if (!pErr && props.binary) {
+            clearInterval (retryInterval);
+            callback (null, pData);
+            return;
+          }
+
+          // Error, binary expected, not waiting = fail
+          if (pErr && props.binary && !pErr.error.match (/Data not yet available/)) {
+            clearInterval (retryInterval);
+            callback (pErr);
+            return;
+          }
+
+          // No error, non-binary, complete = ok
+          if (!pErr && !props.binary && (pData.state === 'completed' || pData.state === 'error')) {
+            clearInterval (retryInterval);
+            callback (null, pData);
+          }
+        });
+      }, polling);
+    }
+  });
 }
 
 /**

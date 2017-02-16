@@ -117,7 +117,7 @@ gtmetrix.test.create (test, console.log);
 
 
 ### test.get
-**( testId, [resource], callback )**
+**( testId, [resource], [polling], callback )**
 
 Get details about a test or one of its resources.
 
@@ -126,9 +126,10 @@ the callback `data` will be a _Buffer_ instance, so you can
 post-process the binary data however you like. See example below.
 
 argument | type     | required | description
-:--------|:---------|:---------|:------------------------
+:--------|:---------|:---------|:-----------------------------
 testId   | string   | yes      | Test `id` to look up
 resource | string   | no       | Retrieve a test resource
+polling  | number   | no       | Retry until completion, in ms
 callback | function | yes      | Callback function
 
 [API documentation](https://gtmetrix.com/api/#api-test-state)
@@ -137,20 +138,26 @@ callback | function | yes      | Callback function
 ##### Test details
 
 ```js
+// Just get test result
 gtmetrix.test.get ('Ao0AYQbz', console.log);
+
+// Get test result when it is complete, retry every 5 seconds (5000 ms)
+gtmetrix.test.get ('Ao0AYQbz', 5000, console.log);
 ```
 
 
 ##### Retrieve screenshot
 
+And retry every 5000 ms until it's ready.
+
 ```js
 var fs = require ('fs');
 
-gtmetrix.test.get ('Ao0AYQbz', 'screenshot', function (err, data) {
+gtmetrix.test.get ('Ao0AYQbz', 'screenshot', 5000, function (err, data) {
   if (err) { return console.log (err); }
 
   // Store on disk
-  fs.writeFile (__dirname + '/screenshot.jpg', data, console.log);
+  fs.writeFile (__dirname + '/screenshot.jpg', { encoding: 'binary' }, data, console.log);
 });
 ```
 

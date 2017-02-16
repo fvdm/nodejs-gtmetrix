@@ -84,7 +84,7 @@ dotest.add ('test.create', function () {
 });
 
 
-dotest.add ('test.get details', function () {
+dotest.add ('test.get - without polling', function () {
   gtmetrix.test.get (cache.test_id, function (err, data) {
     dotest.test (err)
       .isObject ('fail', 'data', data)
@@ -94,12 +94,20 @@ dotest.add ('test.get details', function () {
 });
 
 
-dotest.add ('test.get resource', function () {
-  gtmetrix.test.get (cache.test_id, 'screenshot', function (err) {
-    dotest.test ()
-      .isError ('fail', 'err', err)
-      .isString ('fail', 'err.error', err && err.error)
-      .isExactly ('fail', 'err.message', err && err.message, 'API error')
+dotest.add ('test.get - with polling', function () {
+  gtmetrix.test.get (cache.test_id, 5000, function (err, data) {
+    dotest.test (err)
+      .isObject ('fail', 'data', data)
+      .isExactly ('fail', 'data.state', data && data.state, 'completed')
+      .done ();
+  });
+});
+
+
+dotest.add ('test.get resource - binary with polling', function () {
+  gtmetrix.test.get (cache.test_id, 'screenshot', 5000, function (err, data) {
+    dotest.test (err)
+      .isObject ('fail', 'data', data)
       .done ();
   });
 });
