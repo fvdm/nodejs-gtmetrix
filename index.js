@@ -79,7 +79,7 @@ function apiResponse (options, err, res, callback) {
  * @callback callback
  * @param props {object}
  * @param [props.binary=false] {boolean} - Expect binary response
- * @param [props.method=GET] {string} - HTTP method
+ * @param props.method {string} - HTTP method
  * @param [props.params] {object} - Method parameters
  * @param props.path {string} - Method path
  * @param callback {function} - `(err, data)`
@@ -90,7 +90,7 @@ function apiRequest (props, callback) {
   var options = {
     url: 'https://gtmetrix.com/api/0.1/' + props.path,
     parameters: props.params || null,
-    method: props.method || 'GET',
+    method: props.method,
     headers: {
       'User-Agent': 'gtmetrix.js (https://www.npmjs.com/package/gtmetrix)'
     },
