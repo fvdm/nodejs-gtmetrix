@@ -6,7 +6,7 @@
   },
   "name": "gtmetrix",
   "description": "Run and access tests with the GTmetrix API to measure website performance",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/fvdm/nodejs-gtmetrix.git"
