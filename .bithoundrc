@@ -2,6 +2,9 @@
   "critics": {
     "lint": {
       "engine": "eslint"
+    },
+    "wc": {
+      "limit": 5000
     }
   },
   "ignore": [
