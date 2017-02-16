@@ -161,7 +161,7 @@ function testGet (testId, resource, polling, callback) {
 
     case 'string':
       props.path += '/' + resource;
-      props.binary = !!~resource.match (/screenshot/);
+      props.binary = !!resource.match (/^(screenshot|pagespeed-files|report-pdf|video)$/);
       break;
 
     default:
