@@ -1,3 +1,15 @@
+#### 1.1.3 (2017-2-16)
+
+##### Refactors
+
+* **apiRequest:** Timeout must not be replaced ([06e0ed79](https://github.com/fvdm/nodejs-gtmetrix/commit/06e0ed79dd2e11f3b90122feff6594fadbc223f7))
+* **apiResponse:** No default for props.method ([051fa477](https://github.com/fvdm/nodejs-gtmetrix/commit/051fa4772e44561387f22f245e85eca97425532a))
+* **errors:** Moved cb errors to doError() ([72c26638](https://github.com/fvdm/nodejs-gtmetrix/commit/72c26638ac29be52777bb7ab10c4cac8fd51c6fc))
+
+##### Tests
+
+* **main:** Added test Error request failed ([74cfa98a](https://github.com/fvdm/nodejs-gtmetrix/commit/74cfa98ab0c898c3218ab58a6857c089ee2fa063))
+
 #### 1.1.2 (2017-2-16)
 
 ##### Chores
