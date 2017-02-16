@@ -76,7 +76,7 @@ dotest.add ('locations.list', function (test) {
 
 dotest.add ('test.create', function (test) {
   gtmetrix.test.create (cache, function (err, data) {
-    cache = data;
+    cache.test = data;
     test (err)
       .isObject ('fail', 'data', data)
       .done ();
@@ -85,7 +85,7 @@ dotest.add ('test.create', function (test) {
 
 
 dotest.add ('test.get - without polling', function (test) {
-  gtmetrix.test.get (cache.test_id, function (err, data) {
+  gtmetrix.test.get (cache.test.test_id, function (err, data) {
     test (err)
       .isObject ('fail', 'data', data)
       .isString ('warn', 'data.state', data && data.state)
@@ -95,19 +95,40 @@ dotest.add ('test.get - without polling', function (test) {
 
 
 dotest.add ('test.get - with polling', function (test) {
-  gtmetrix.test.get (cache.test_id, 5000, function (err, data) {
+  gtmetrix.test.get (cache.test.test_id, 5000, function (err, data) {
     test (err)
       .isObject ('fail', 'data', data)
-      .isExactly ('fail', 'data.state', data && data.state, 'completed')
+      .isRegexpMatch ('fail', 'data.state', data && data.state, /^(started|queued)$/)
       .done ();
   });
 });
 
 
 dotest.add ('test.get resource - binary with polling', function (test) {
-  gtmetrix.test.get (cache.test_id, 'screenshot', 5000, function (err, data) {
+  gtmetrix.test.get (cache.test.test_id, 'screenshot', 5000, function (err, data) {
     test (err)
       .isObject ('fail', 'data', data)
+      .done ();
+  });
+});
+
+
+dotest.add ('test.get resource - non-binary with polling', function (test) {
+  gtmetrix.test.get (cache.test.test_id, 'yslow', 5000, function (err, data) {
+    test (err)
+      .isObject ('fail', 'data', data)
+      .isExactly ('fail', 'data.u', data && data.u, cache.url)
+      .done ();
+  });
+});
+
+
+dotest.add ('Error: API error - without polling', function (test) {
+  gtmetrix.test.get ('0', function (err, data) {
+    test ()
+      .isError ('fail', 'err', err)
+      .isExactly ('fail', 'err.message', err && err.message, 'API error')
+      .isUndefined ('fail', 'data', data)
       .done ();
   });
 });
