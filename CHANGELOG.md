@@ -1,3 +1,19 @@
+#### 1.2.3 (2017-3-23)
+
+##### Chores
+
+* **package:** Update deps ([a86dd718](https://github.com/fvdm/nodejs-gtmetrix/commit/a86dd718547e97241bec05392838be52ef22ff52))
+
+##### Documentation Changes
+
+* **readme:**
+  * Add resources table ([e4e013f4](https://github.com/fvdm/nodejs-gtmetrix/commit/e4e013f4fb0310b715690316b9e9be48a8d222ba))
+  * Removed encoding from resource code ([24a8826a](https://github.com/fvdm/nodejs-gtmetrix/commit/24a8826a340e19493d128b5a962c6e079a84deef))
+
+##### Bug Fixes
+
+* **testGet:** Improved resource handling ([380cc790](https://github.com/fvdm/nodejs-gtmetrix/commit/380cc7907473218f5c2f3bd98ed2d715718d217b))
+
 #### 1.2.2 (2017-2-16)
 
 ##### Tests
