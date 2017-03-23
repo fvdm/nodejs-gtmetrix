@@ -16,10 +16,10 @@
   },
   "main": "index.js",
   "dependencies": {
-    "httpreq": "^0.4.22"
+    "httpreq": "^0.4.23"
   },
   "devDependencies": {
-    "dotest": "^1.15.0"
+    "dotest": "^1.15.1"
   },
   "engines": {
     "node": ">=4.0.0"
