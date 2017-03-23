@@ -161,6 +161,20 @@ gtmetrix.test.get ('Ao0AYQbz', 'screenshot', 5000, function (err, data) {
 });
 ```
 
+###### Resources
+
+resource        | binary | content   | description
+:---------------|:-------|:----------|:---------------------------------------
+filmstrip       | yes    | JPG       | Page loading filmstrip (requires video)
+har             | no     | JS object | HTTP Archive
+pagespeed       | no     | JS object | Pagespeed report
+pagespeed-files | yes    | ZIP       | Pagespeed optimized files
+report-pdf      | yes    | PDF       | Test summary
+report-pdf-full | yes    | PDF       | Full test report
+screenshot      | yes    | JPG       | Screenshot image
+video           | yes    | MP4       | Page loading video
+yslow           | no     | JS object | YSlow report
+
 
 ### locations.list
 **( callback )**
