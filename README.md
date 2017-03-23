@@ -157,7 +157,7 @@ gtmetrix.test.get ('Ao0AYQbz', 'screenshot', 5000, function (err, data) {
   if (err) { return console.log (err); }
 
   // Store on disk
-  fs.writeFile (__dirname + '/screenshot.jpg', { encoding: 'binary' }, data, console.log);
+  fs.writeFile (__dirname + '/screenshot.jpg', data, console.log);
 });
 ```
 
