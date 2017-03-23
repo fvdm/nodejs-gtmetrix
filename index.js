@@ -9,6 +9,31 @@ var config = {
 
 
 /**
+ * Get info about resource type
+ *
+ * @param name {string} - The resource name
+ * @return     {object} - Resource info object
+ */
+
+function resourceType (name) {
+  var info = {
+    binary: false,
+    path: name.replace ('_', '-')
+  };
+
+  if (info.path.match (/^(filmstrip|pagespeed-files|report-pdf(-full)?|screenshot|video)$/)) {
+    info.binary = true;
+  }
+
+  if (info.path === 'report-pdf-full') {
+    info.path = 'report-pdf?full=1';
+  }
+
+  return info;
+}
+
+
+/**
  * Callback an error
  *
  * @param msg {string} - Error.message
@@ -137,6 +162,8 @@ function testCreate (params, callback) {
  */
 
 function testGet (testId, resource, polling, callback) {
+  var resourceInfo = {};
+
   var props = {
     method: 'GET',
     path: 'test/' + testId
@@ -160,8 +187,9 @@ function testGet (testId, resource, polling, callback) {
       break;
 
     case 'string':
-      props.path += '/' + resource;
-      props.binary = !!resource.match (/^(screenshot|pagespeed-files|report-pdf|video)$/);
+      resourceInfo = resourceType (resource);
+      props.path += '/' + resourceInfo.path;
+      props.binary = resourceInfo.binary;
       break;
 
     default:
