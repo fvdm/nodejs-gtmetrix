@@ -1,3 +1,40 @@
+#### 1.2.4 (2017-7-8)
+
+##### Chores
+
+* **repo:** Added package-lock.json ([194a2651](https://github.com/fvdm/nodejs-gtmetrix/commit/194a2651bf8972cbc85f2fc0cab54d998a160f20))
+* **package:**
+  * Clean up description and keywords ([7bdcf6da](https://github.com/fvdm/nodejs-gtmetrix/commit/7bdcf6dadf49867e46f1e5ec80cd6f76b136dcfe))
+  * Updated dependencies ([c9539360](https://github.com/fvdm/nodejs-gtmetrix/commit/c95393604fe0a5e4b855b7ec7ce18158e1d0d59e))
+  * update eslint to version 3.19.0 (#13) ([840d95d9](https://github.com/fvdm/nodejs-gtmetrix/commit/840d95d9968e8f6841c9fce8d5f0ef3dc173f9c6))
+  * update coveralls to version 2.13.0 (#12) ([e58acb3a](https://github.com/fvdm/nodejs-gtmetrix/commit/e58acb3a275750c1f39e9aaae4c93fd2a01ac0df))
+  * Update dotest dev dep ([ebf48a19](https://github.com/fvdm/nodejs-gtmetrix/commit/ebf48a19d26892103ba105f6d28ec2c228c7dd2d))
+  * Update dev deps ([52a28531](https://github.com/fvdm/nodejs-gtmetrix/commit/52a28531c801f64c2dc2b42188328da4bcf9d937))
+
+##### Documentation Changes
+
+* **readme:**
+  * Minor clean up ([e78ae317](https://github.com/fvdm/nodejs-gtmetrix/commit/e78ae31716481a28911c86ba365775ed84c1d9fd))
+  * Add coffee button to Author ([e9c4194a](https://github.com/fvdm/nodejs-gtmetrix/commit/e9c4194ae4496809c8dc2cd4b65aa59ca89739df))
+
+##### Bug Fixes
+
+* **testGet:** Get resource with polling failed ([bb909295](https://github.com/fvdm/nodejs-gtmetrix/commit/bb909295afe122360992d5c7e1d1c9b4a0fc90af))
+
+##### Refactors
+
+* **testGet:** Prevent extra request on polling ([c5d9d5f3](https://github.com/fvdm/nodejs-gtmetrix/commit/c5d9d5f3c51b4b13f225a0e20ee47e4d513b5f91))
+
+##### Code Style Changes
+
+* **code:** Use ES6 arrow functions ([dc84c68b](https://github.com/fvdm/nodejs-gtmetrix/commit/dc84c68bdde80c01d4dacce88a8953020ff4236e))
+* **comments:** Clean up JSDoc comments ([94badba7](https://github.com/fvdm/nodejs-gtmetrix/commit/94badba73973f1ca163075007d3d1fbb656cd386))
+
+##### Tests
+
+* **main:** Improved test coverage ([0270034e](https://github.com/fvdm/nodejs-gtmetrix/commit/0270034eb6624cbe3a3b73dd7c2af5fba98e9132))
+* **config:** Add node v8 to Travis CI ([76489631](https://github.com/fvdm/nodejs-gtmetrix/commit/764896311816772fcd1ef79bf1f65a6413ac995b))
+
 #### 1.2.3 (2017-3-23)
 
 ##### Chores
