@@ -11,8 +11,8 @@ var config = {
 /**
  * Get info about resource type
  *
- * @param name {string} - The resource name
- * @return     {object} - Resource info object
+ * @param   {string}  name  The resource name
+ * @return  {object}        Resource info object
  */
 
 function resourceType (name) {
@@ -36,11 +36,11 @@ function resourceType (name) {
 /**
  * Callback an error
  *
- * @param msg {string} - Error.message
- * @param err {mixed} - Error.error
- * @param code {number|null} - Error.statusCode
- * @param type {string|null} - Error.contentType
- * @return {Error}
+ * @param   {string}       msg   Error.message
+ * @param   {mixed}        err   Error.error
+ * @param   {number|null}  code  Error.statusCode
+ * @param   {string|null}  type  Error.contentType
+ * @return  {Error}
  */
 
 function doError (msg, err, code, type) {
@@ -56,12 +56,12 @@ function doError (msg, err, code, type) {
 /**
  * Process API response
  *
- * @callback callback
- * @param options {object} - httpreq options
- * @param err {Error|null} - httpreq Error
- * @param res {object} - httpreq response
- * @param callback {function} - `(err, data)`
- * @return {void}
+ * @callback  callback
+ * @param     {object}      options   httpreq options
+ * @param     {Error|null}  err       httpreq Error
+ * @param     {object}      res       httpreq response
+ * @param     {function}    callback  `(err, data)`
+ * @return    {void}
  */
 
 function apiResponse (options, err, res, callback) {
@@ -101,14 +101,14 @@ function apiResponse (options, err, res, callback) {
 /**
  * Send API request
  *
- * @callback callback
- * @param props {object}
- * @param [props.binary=false] {boolean} - Expect binary response
- * @param props.method {string} - HTTP method
- * @param [props.params] {object} - Method parameters
- * @param props.path {string} - Method path
- * @param callback {function} - `(err, data)`
- * @return {void}
+ * @callback  callback
+ * @param     {object}    props
+ * @param     {boolean}   [props.binary=false]  Expect binary response
+ * @param     {string}    props.method          HTTP method
+ * @param     {object}    [props.params]        Method parameters
+ * @param     {string}    props.path            Method path
+ * @param     {function}  callback              `(err, data)`
+ * @return    {void}
  */
 
 function apiRequest (props, callback) {
@@ -133,10 +133,10 @@ function apiRequest (props, callback) {
 /**
  * Create test
  *
- * @callback callback
- * @param params {object}
- * @param callback {function} - `(err, data)`
- * @return {void}
+ * @callback  callback
+ * @param     {object}    params
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function testCreate (params, callback) {
@@ -153,12 +153,12 @@ function testCreate (params, callback) {
 /**
  * Get test result
  *
- * @callback callback
- * @param testId {string} - Test ID
- * @param [resource] {string} - Resource to get, i.e. `screenshot`
- * @param [polling] {number} - Poll state until completion, in ms
- * @param callback {function} - `(err, data)`
- * @return {void}
+ * @callback  callback
+ * @param     {string}    testId      Test ID
+ * @param     {string}    [resource]  Resource to get, i.e. `screenshot`
+ * @param     {number}    [polling]   Poll state until completion, in ms
+ * @param     {function}  callback    `(err, data)`
+ * @return    {void}
  */
 
 function testGet (testId, resource, polling, callback) {
@@ -248,12 +248,13 @@ function testGet (testId, resource, polling, callback) {
   });
 }
 
+
 /**
  * List locations
  *
- * @callback callback
- * @param callback {function} - `(err, data)`
- * @return {void}
+ * @callback  callback
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function locationsList (callback) {
@@ -269,9 +270,9 @@ function locationsList (callback) {
 /**
  * List browsers
  *
- * @callback callback
- * @param callback {function} - `(err, data)`
- * @return {void}
+ * @callback  callback
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function browsersList (callback) {
@@ -287,10 +288,10 @@ function browsersList (callback) {
 /**
  * Get browser
  *
- * @callback callback
- * @param browserId {string}
- * @param callback {function} - `(err, data)`
- * @return {void}
+ * @callback  callback
+ * @param     {string}    browserId
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function browsersGet (browserId, callback) {
@@ -306,9 +307,9 @@ function browsersGet (browserId, callback) {
 /**
  * Get account status
  *
- * @callback callback
- * @param callback {function} - `(err, data)`
- * @return {void}
+ * @callback  callback
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function accountStatus (callback) {
@@ -324,11 +325,11 @@ function accountStatus (callback) {
 /**
  * Module interface
  *
- * @param props {object}
- * @param props.email {string} - API email
- * @param props.apikey {string} - API key
- * @param [props.timeout=5000] {number} - Request timeut in ms
- * @return {object} - Methods
+ * @param   {object}  props
+ * @param   {string}  props.email           API email
+ * @param   {string}  props.apikey          API key
+ * @param   {number}  [props.timeout=5000]  Request timeut in ms
+ * @return  {object}                        Methods
  */
 
 module.exports = function (props) {
