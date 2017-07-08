@@ -18,13 +18,13 @@ Example
 -------
 
 ```js
-var gtmetrix = require ('gtmetrix') ({
+const gtmetrix = require ('gtmetrix') ({
   email: 'your@mail.tld',
   apikey: 'abc123'
 });
 
 // Run test from London with Google Chrome
-var test = {
+const test = {
   url: 'http://example.net/',
   location: 2,
   browser: 3
@@ -44,7 +44,7 @@ gtmetrix.test.create (test, console.log);
 Installation
 ------------
 
-`npm install gtmetrix`
+`npm install gtmetrix --save`
 
 You need an account at GTmetrix to get an API key.
 The API key can be found [here](https://gtmetrix.com/api/#api-details) when you are logged in.
@@ -76,10 +76,7 @@ var gtmetrix = require ('gtmetrix') ({
 Error handling
 --------------
 
-The methods require a callback _function_ argument to process the results.
-This `callback` receives two arguments: `err` and `data`, as per industry standards.
-
-When an error occurs `err` is an instance of `Error` with additional properties.
+The callback functions get the standard `err` and `data` arguments.
 
 message          | description            | properties
 :----------------|:-----------------------|:----------------------------------
@@ -165,13 +162,13 @@ gtmetrix.test.get ('Ao0AYQbz', 'screenshot', 5000, function (err, data) {
 
 resource        | binary | content   | description
 :---------------|:-------|:----------|:---------------------------------------
-filmstrip       | yes    | JPG       | Page loading filmstrip (requires video)
+filmstrip       | yes    | JPEG      | Page loading filmstrip (requires video)
 har             | no     | JS object | HTTP Archive
 pagespeed       | no     | JS object | Pagespeed report
 pagespeed-files | yes    | ZIP       | Pagespeed optimized files
 report-pdf      | yes    | PDF       | Test summary
 report-pdf-full | yes    | PDF       | Full test report
-screenshot      | yes    | JPG       | Screenshot image
+screenshot      | yes    | JPEG      | Screenshot image
 video           | yes    | MP4       | Page loading video
 yslow           | no     | JS object | YSlow report
 
