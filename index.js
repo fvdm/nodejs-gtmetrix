@@ -151,6 +151,47 @@ function testCreate (params, callback) {
 
 
 /**
+ * Process callback when polling
+ *
+ * @callback  callback
+ * @param     {object}      props     Request properties
+ * @param     {Error|null}  err       Response error
+ * @param     {object}      data      Response data
+ * @param     {function}    callback  `(err, data)`
+ * @return    {boolean}               Stop polling? true = yes
+ */
+
+function pollingCallback (props, err, data, callback) {
+  // Error, non-binary, not waiting = fail
+  if (err && !props.binary && !err.error.match (/Data not yet available/)) {
+    callback (err);
+    return true;
+  }
+
+  // Error, binary expected, not waiting = fail
+  if (err && props.binary && !err.error.match (/Data not yet available/)) {
+    callback (err);
+    return true;
+  }
+
+  // No error, binary expected = ok complete
+  if (!err && props.binary) {
+    callback (null, data);
+    return true;
+  }
+
+  // No error, non-binary, complete = ok complete
+  if (!err && !props.binary && data.state !== 'started' && data.state !== 'queued') {
+    callback (null, data);
+    return true;
+  }
+
+  // else keep polling
+  return false;
+}
+
+
+/**
  * Get test result
  *
  * @callback  callback
@@ -198,6 +239,7 @@ function testGet (testId, resource, polling, callback) {
 
   apiRequest (props, function (err, data) {
     var retryInterval;
+    var check;
 
     if (err && !polling) {
       callback (err);
@@ -214,33 +256,18 @@ function testGet (testId, resource, polling, callback) {
     }
 
     if (typeof polling === 'number') {
+      check = pollingCallback (props, err, data, callback);
+
+      if (check) {
+        return;
+      }
+
       retryInterval = setInterval (function () {
         testGet (testId, resource, function (pErr, pData) {
-          // Error, non-binary, not waiting = fail
-          if (pErr && !props.binary && !pErr.error.match (/Data not yet available/)) {
-            clearInterval (retryInterval);
-            callback (pErr);
-            return;
-          }
+          var pCheck = pollingCallback (props, pErr, pData, callback);
 
-          // Error, binary expected, not waiting = fail
-          if (pErr && props.binary && !pErr.error.match (/Data not yet available/)) {
+          if (pCheck) {
             clearInterval (retryInterval);
-            callback (pErr);
-            return;
-          }
-
-          // No error, binary expected = ok complete
-          if (!pErr && props.binary) {
-            clearInterval (retryInterval);
-            callback (null, pData);
-            return;
-          }
-
-          // No error, non-binary, complete = ok complete
-          if (!pErr && !props.binary && pData.state !== 'started' && pData.state !== 'queued') {
-            clearInterval (retryInterval);
-            callback (null, pData);
           }
         });
       }, polling);
