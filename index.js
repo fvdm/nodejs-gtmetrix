@@ -216,17 +216,10 @@ function testGet (testId, resource, polling, callback) {
     if (typeof polling === 'number') {
       retryInterval = setInterval (function () {
         testGet (testId, resource, function (pErr, pData) {
-          // Error, non-binary = fail
-          if (pErr && !props.binary) {
+          // Error, non-binary, not waiting = fail
+          if (pErr && !props.binary && !pErr.error.match (/Data not yet available/)) {
             clearInterval (retryInterval);
             callback (pErr);
-            return;
-          }
-
-          // No error, binary expected = ok
-          if (!pErr && props.binary) {
-            clearInterval (retryInterval);
-            callback (null, pData);
             return;
           }
 
@@ -237,7 +230,14 @@ function testGet (testId, resource, polling, callback) {
             return;
           }
 
-          // No error, non-binary, complete = ok
+          // No error, binary expected = ok complete
+          if (!pErr && props.binary) {
+            clearInterval (retryInterval);
+            callback (null, pData);
+            return;
+          }
+
+          // No error, non-binary, complete = ok complete
           if (!pErr && !props.binary && pData.state !== 'started' && pData.state !== 'queued') {
             clearInterval (retryInterval);
             callback (null, pData);
