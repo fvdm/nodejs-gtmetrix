@@ -124,7 +124,7 @@ function apiRequest (props, callback) {
     binary: props.binary || false
   };
 
-  http.doRequest (options, function (err, res) {
+  http.doRequest (options, (err, res) => {
     apiResponse (options, err, res, callback);
   });
 }
@@ -262,8 +262,8 @@ function testGet (testId, resource, polling, callback) {
         return;
       }
 
-      retryInterval = setInterval (function () {
-        testGet (testId, resource, function (pErr, pData) {
+      retryInterval = setInterval (() => {
+        testGet (testId, resource, (pErr, pData) => {
           var pCheck = pollingCallback (props, pErr, pData, callback);
 
           if (pCheck) {
