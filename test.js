@@ -105,7 +105,7 @@ dotest.add ('test.get - with polling', function (test) {
 
 
 dotest.add ('test.get resource - binary with polling', function (test) {
-  gtmetrix.test.get (cache.test.test_id, 'screenshot', 5000, function (err, data) {
+  gtmetrix.test.get (cache.test.test_id, 'report-pdf-full', 5000, function (err, data) {
     test (err)
       .isObject ('fail', 'data', data)
       .done ();
