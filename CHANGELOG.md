@@ -1,3 +1,9 @@
+#### 1.2.5 (2017-09-09)
+
+##### Chores
+
+* **repo:** Removed package-lock.json ([fef5aa2a](https://github.com/fvdm/nodejs-gtmetrix/commit/fef5aa2ac202e32e2948ed562365a4f5cdd1c271))
+
 #### 1.2.4 (2017-7-8)
 
 ##### Chores
