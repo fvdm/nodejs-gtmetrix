@@ -1,6 +1,8 @@
 gtmetrix
 ========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/fvdm/nodejs-gtmetrix.svg)](https://greenkeeper.io/)
+
 Node.js module for the GTmetrix API to run and access tests.
 
 [![npm](https://img.shields.io/npm/v/gtmetrix.svg?maxAge=3600)](https://github.com/fvdm/nodejs-gtmetrix/blob/master/CHANGELOG.md)
