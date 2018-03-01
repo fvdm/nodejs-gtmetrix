@@ -169,7 +169,7 @@ function pollingCallback (props, err, data, callback) {
   }
 
   // Error, binary expected, not waiting = fail
-  ig (err && props.binary && String (err.error).match (/Data not yet available/)) {
+  if (err && props.binary && String (err.error).match (/Data not yet available/)) {
     callback (err);
     return true;
   }
