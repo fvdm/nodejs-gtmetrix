@@ -34,7 +34,7 @@ var cache = {
 
 
 dotest.add ('Interface', test => {
-  const test = gtmetrix && gtmetrix.test;
+  const tst = gtmetrix && gtmetrix.test;
   const locations = gtmetrix && gtmetrix.locations;
   const browsers = gtmetrix && gtmetrix.browsers;
   const account = gtmetrix && gtmetrix.account;
@@ -43,9 +43,9 @@ dotest.add ('Interface', test => {
     .isFunction ('fail', 'export', app)
     .isObject ('fail', 'module', gtmetrix)
 
-    .isObject ('fail', '.test', test)
-    .isFunction ('fail', '.test.create', test && test.create)
-    .isFunction ('fail', '.test.get', test && test.get)
+    .isObject ('fail', '.test', tst)
+    .isFunction ('fail', '.test.create', tst && tst.create)
+    .isFunction ('fail', '.test.get', tst && tst.get)
 
     .isObject ('fail', '.locations', locations)
     .isFunction ('fail', '.locations.list', locations && locations.list)
