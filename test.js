@@ -29,7 +29,7 @@ var gtmetrix = app ({
 var cache = {
   url: 'http://example.net/',
   location,
-  browse
+  browser
 };
 
 
