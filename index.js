@@ -197,6 +197,57 @@ function pollingCallback (props, err, data, callback) {
 
 
 /**
+ * Process test response
+ *
+ * @callback  callback
+ * @return    {void}
+ *
+ * @param     {object}      props     Request params
+ * @param     {Error|null}  err       Response error
+ * @param     {mixed}       data      Response data
+ * @param     {function}    callback  `(err, data)`
+ */
+
+function testResponse (props, err, data, callback) {
+  var retryInterval;
+  var complete;
+
+  if (err && !polling) {
+    callback (err);
+    return;
+  }
+
+  if (!polling) {
+    callback (null, data);
+    return;
+  }
+
+  if (polling === true) {
+    polling = 5000;
+  }
+
+  if (typeof polling === 'number') {
+    complete = pollingCallback (props, err, data, callback);
+
+    if (complete) {
+      return;
+    }
+
+    // Test is still running
+    retryInterval = setInterval (() => {
+      testGet (testId, resource, (pErr, pData) => {
+        var pComplete = pollingCallback (props, pErr, pData, callback);
+
+        if (pComplete) {
+          clearInterval (retryInterval);
+        }
+      });
+    }, polling);
+  }
+}
+
+
+/**
  * Get test result
  *
  * @callback  callback
@@ -243,41 +294,7 @@ function testGet (testId, resource, polling, callback) {
   }
 
   apiRequest (props, function (err, data) {
-    var retryInterval;
-    var complete;
-
-    if (err && !polling) {
-      callback (err);
-      return;
-    }
-
-    if (!polling) {
-      callback (null, data);
-      return;
-    }
-
-    if (polling === true) {
-      polling = 5000;
-    }
-
-    if (typeof polling === 'number') {
-      complete = pollingCallback (props, err, data, callback);
-
-      if (complete) {
-        return;
-      }
-
-      // Test is still running
-      retryInterval = setInterval (() => {
-        testGet (testId, resource, (pErr, pData) => {
-          var pComplete = pollingCallback (props, pErr, pData, callback);
-
-          if (pComplete) {
-            clearInterval (retryInterval);
-          }
-        });
-      }, polling);
-    }
+    testResponse (props, err, data, callback);
   });
 }
 
