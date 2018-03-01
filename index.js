@@ -180,13 +180,13 @@ function pollingCallback (props, err, data, callback) {
   }
 
   // No API error, binary expected = ok complete
-  if (!err && props.binary) {
+  if (props.binary) {
     callback (null, data);
     return true;
   }
 
   // No error, non-binary, not running = ok complete
-  if (!err && !props.binary && !String (data.state).match (/^(started|queued)$/)) {
+  if (!String (data.state).match (/^(started|queued)$/)) {
     callback (null, data);
     return true;
   }
