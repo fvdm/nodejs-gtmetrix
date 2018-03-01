@@ -1,7 +1,16 @@
-var http = require ('httpreq');
+const http = require ('httpreq');
+
+let pkg = {
+  test: {
+    get: null
+  },
+  locations: {},
+  browsers: {},
+  account: {}
+};
 
 // Defaults
-var config = {
+let config = {
   email: null,
   apikey: null,
   timeout: 5000
@@ -16,7 +25,7 @@ var config = {
  */
 
 function resourceType (name) {
-  var info = {
+  let info = {
     binary: false,
     path: name.replace ('_', '-')
   };
@@ -45,7 +54,7 @@ function resourceType (name) {
  */
 
 function doError (msg, err, code, type) {
-  var error = new Error (msg);
+  let error = new Error (msg);
 
   error.error = err;
   error.statusCode = code;
@@ -67,11 +76,11 @@ function doError (msg, err, code, type) {
  */
 
 function apiResponse (options, err, res, callback) {
-  var type;
-  var size;
-  var code;
-  var data;
-  var error = null;
+  let type;
+  let size;
+  let code;
+  let data;
+  let error = null;
 
   if (err) {
     error = doError ('request failed', err, null, null);
@@ -125,7 +134,7 @@ function apiResponse (options, err, res, callback) {
  */
 
 function apiRequest (props, callback) {
-  var options = {
+  const options = {
     url: 'https://gtmetrix.com/api/0.1/' + props.path,
     parameters: props.params || null,
     method: props.method,
@@ -153,8 +162,8 @@ function apiRequest (props, callback) {
  * @param     {function}  callback  `(err, data)`
  */
 
-function testCreate (params, callback) {
-  var props = {
+pkg.test.create = (params, callback) => {
+  const props = {
     method: 'POST',
     path: 'test',
     params: params
@@ -222,8 +231,8 @@ function pollingCallback (props, err, data, callback) {
  */
 
 function testResponse (params, err, data, callback) {
-  var retryInterval;
-  var complete;
+  let retryInterval;
+  let complete;
 
   if (err && !params.polling) {
     callback (err);
@@ -248,8 +257,8 @@ function testResponse (params, err, data, callback) {
 
     // Test is still running
     retryInterval = setInterval (() => {
-      testGet (params.testId, params.resource, (pErr, pData) => {
-        var pComplete = pollingCallback (params.props, pErr, pData, callback);
+      pkg.test.get (params.testId, params.resource, (pErr, pData) => {
+        const pComplete = pollingCallback (params.props, pErr, pData, callback);
 
         if (pComplete) {
           clearInterval (retryInterval);
@@ -272,9 +281,9 @@ function testResponse (params, err, data, callback) {
  * @param     {function}  callback    `(err, data)`
  */
 
-function testGet (testId, resource, polling, callback) {
-  var resourceInfo = {};
-  var params = {
+pkg.test.get = (testId, resource, polling, callback) => {
+  let resourceInfo = {};
+  let params = {
     testId,
     resource,
     polling,
@@ -311,7 +320,7 @@ function testGet (testId, resource, polling, callback) {
       break;
   }
 
-  apiRequest (params.props, function (err, data) {
+  apiRequest (params.props, (err, data) => {
     testResponse (params, err, data, callback);
   });
 }
@@ -326,8 +335,8 @@ function testGet (testId, resource, polling, callback) {
  * @param     {function}  callback  `(err, data)`
  */
 
-function locationsList (callback) {
-  var props = {
+pkg.locations.list = (callback) => {
+  const props = {
     method: 'GET',
     path: 'locations'
   };
@@ -345,8 +354,8 @@ function locationsList (callback) {
  * @param     {function}  callback  `(err, data)`
  */
 
-function browsersList (callback) {
-  var props = {
+pkg.browsers.list = (callback) => {
+  const props = {
     method: 'GET',
     path: 'browsers'
   };
@@ -365,8 +374,8 @@ function browsersList (callback) {
  * @param     {function}  callback  `(err, data)`
  */
 
-function browsersGet (browserId, callback) {
-  var props = {
+pkg.browsers.get = (browserId, callback) => {
+  const props = {
     method: 'GET',
     path: 'browsers/' + browserId
   };
@@ -384,8 +393,8 @@ function browsersGet (browserId, callback) {
  * @param     {function}  callback  `(err, data)`
  */
 
-function accountStatus (callback) {
-  var props = {
+pkg.account.stats = (callback) => {
+  const props = {
     method: 'GET',
     path: 'status'
   };
@@ -405,27 +414,12 @@ function accountStatus (callback) {
  * @param   {number}  [props.timeout=5000]  Request timeut in ms
  */
 
-module.exports = function (props) {
-  var key;
+module.exports = (props) => {
+  let key;
 
   for (key in props) {
     config [key] = props [key];
   }
 
-  return {
-    test: {
-      create: testCreate,
-      get: testGet
-    },
-    locations: {
-      list: locationsList
-    },
-    browsers: {
-      list: browsersList,
-      get: browsersGet
-    },
-    account: {
-      status: accountStatus
-    }
-  };
+  return pkg;
 };
