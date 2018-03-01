@@ -173,6 +173,12 @@ function pollingCallback (props, err, data, callback) {
     return false;
   }
 
+  // Another API error
+  if (err) {
+    callback (err);
+    return true;
+  }
+
   // No API error, binary expected = ok complete
   if (!err && props.binary) {
     callback (null, data);
