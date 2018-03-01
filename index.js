@@ -34,13 +34,14 @@ function resourceType (name) {
 
 
 /**
- * Callback an error
+ * Make an error
+ *
+ * @return  {Error}
  *
  * @param   {string}       msg   Error.message
  * @param   {mixed}        err   Error.error
  * @param   {number|null}  code  Error.statusCode
  * @param   {string|null}  type  Error.contentType
- * @return  {Error}
  */
 
 function doError (msg, err, code, type) {
@@ -57,18 +58,19 @@ function doError (msg, err, code, type) {
  * Process API response
  *
  * @callback  callback
+ * @return    {void}
+ *
  * @param     {object}      options   httpreq options
  * @param     {Error|null}  err       httpreq Error
  * @param     {object}      res       httpreq response
  * @param     {function}    callback  `(err, data)`
- * @return    {void}
  */
 
 function apiResponse (options, err, res, callback) {
-  var type = res && res.headers ['content-type'] .split (';') [0] || '';
-  var size = res && res.headers ['content-length'] || null;
-  var code = res && res.statusCode;
-  var data = res && res.body || null;
+  var type;
+  var size;
+  var code;
+  var data;
   var error = null;
 
   if (err) {
@@ -76,6 +78,11 @@ function apiResponse (options, err, res, callback) {
     callback (error);
     return;
   }
+
+  type = String (res.headers ['content-type']) .split (';') [0];
+  size = String (res.headers ['content-length']);
+  code = res.statusCode;
+  data = res.body;
 
   // Received data, expecting binary
   if (size && options.binary && type.match (/\/(pdf|jpeg|tar)$/)) {
@@ -86,15 +93,14 @@ function apiResponse (options, err, res, callback) {
   // Received something else
   try {
     data = JSON.parse (data);
+
+    if (data.error) {
+      error = doError ('API error', data.error, code, type);
+      callback (error);
+      return;
+    }
   } catch (e) {
     error = doError ('invalid response', e, code, type);
-    callback (error);
-    return;
-  }
-
-  // It's an api error
-  if (data && data.error) {
-    error = doError ('API error', data.error, code, type);
     callback (error);
     return;
   }
@@ -108,13 +114,14 @@ function apiResponse (options, err, res, callback) {
  * Send API request
  *
  * @callback  callback
+ * @return    {void}
+ *
  * @param     {object}    props
  * @param     {boolean}   [props.binary=false]  Expect binary response
  * @param     {string}    props.method          HTTP method
  * @param     {object}    [props.params]        Method parameters
  * @param     {string}    props.path            Method path
  * @param     {function}  callback              `(err, data)`
- * @return    {void}
  */
 
 function apiRequest (props, callback) {
@@ -140,9 +147,10 @@ function apiRequest (props, callback) {
  * Create test
  *
  * @callback  callback
+ * @return    {void}
+ *
  * @param     {object}    params
  * @param     {function}  callback  `(err, data)`
- * @return    {void}
  */
 
 function testCreate (params, callback) {
@@ -160,11 +168,12 @@ function testCreate (params, callback) {
  * Process callback when polling
  *
  * @callback  callback
+ * @return    {boolean}               Stop polling? true = yes
+ *
  * @param     {object}      props     Request properties
  * @param     {Error|null}  err       Response error
  * @param     {object}      data      Response data
  * @param     {function}    callback  `(err, data)`
- * @return    {boolean}               Stop polling? true = yes
  */
 
 function pollingCallback (props, err, data, callback) {
@@ -202,32 +211,36 @@ function pollingCallback (props, err, data, callback) {
  * @callback  callback
  * @return    {void}
  *
- * @param     {object}      props     Request params
- * @param     {Error|null}  err       Response error
- * @param     {mixed}       data      Response data
- * @param     {function}    callback  `(err, data)`
+ * @param     {object}      params
+ * @param     {bool}        params.polling   Keep polling for updates
+ * @param     {string}      params.testId    Test ID
+ * @param     {string}      params.resource  Test resource
+ * @param     {object}      params.props     Request params
+ * @param     {Error|null}  err              Response error
+ * @param     {mixed}       data             Response data
+ * @param     {function}    callback         `(err, data)`
  */
 
-function testResponse (props, err, data, callback) {
+function testResponse (params, err, data, callback) {
   var retryInterval;
   var complete;
 
-  if (err && !polling) {
+  if (err && !params.polling) {
     callback (err);
     return;
   }
 
-  if (!polling) {
+  if (!params.polling) {
     callback (null, data);
     return;
   }
 
-  if (polling === true) {
-    polling = 5000;
+  if (params.polling === true) {
+    params.polling = 5000;
   }
 
-  if (typeof polling === 'number') {
-    complete = pollingCallback (props, err, data, callback);
+  if (typeof params.polling === 'number') {
+    complete = pollingCallback (params.props, err, data, callback);
 
     if (complete) {
       return;
@@ -235,14 +248,14 @@ function testResponse (props, err, data, callback) {
 
     // Test is still running
     retryInterval = setInterval (() => {
-      testGet (testId, resource, (pErr, pData) => {
-        var pComplete = pollingCallback (props, pErr, pData, callback);
+      testGet (params.testId, params.resource, (pErr, pData) => {
+        var pComplete = pollingCallback (params.props, pErr, pData, callback);
 
         if (pComplete) {
           clearInterval (retryInterval);
         }
       });
-    }, polling);
+    }, params.polling);
   }
 }
 
@@ -251,50 +264,55 @@ function testResponse (props, err, data, callback) {
  * Get test result
  *
  * @callback  callback
+ * @return    {void}
+ *
  * @param     {string}    testId      Test ID
  * @param     {string}    [resource]  Resource to get, i.e. `screenshot`
  * @param     {number}    [polling]   Poll state until completion, in ms
  * @param     {function}  callback    `(err, data)`
- * @return    {void}
  */
 
 function testGet (testId, resource, polling, callback) {
   var resourceInfo = {};
-
-  var props = {
-    method: 'GET',
-    path: 'test/' + testId
+  var params = {
+    testId,
+    resource,
+    polling,
+    props: {
+      method: 'GET',
+      path: 'test/' + testId
+    }
   };
 
   if (typeof polling === 'function') {
     callback = polling;
-    polling = null;
+    params.polling = null;
   }
 
   switch (typeof resource) {
     case 'function':
       callback = resource;
-      resource = null;
-      polling = null;
+      params.resource = null;
+      params.polling = null;
       break;
 
     case 'number':
-      polling = resource;
-      resource = null;
+      params.polling = resource;
+      params.resource = null;
       break;
 
     case 'string':
       resourceInfo = resourceType (resource);
-      props.path += '/' + resourceInfo.path;
-      props.binary = resourceInfo.binary;
+      params.props.path += '/' + resourceInfo.path;
+      params.props.binary = resourceInfo.binary;
       break;
 
     default:
       break;
   }
 
-  apiRequest (props, function (err, data) {
-    testResponse (props, err, data, callback);
+  apiRequest (params.props, function (err, data) {
+    testResponse (params, err, data, callback);
   });
 }
 
@@ -303,8 +321,9 @@ function testGet (testId, resource, polling, callback) {
  * List locations
  *
  * @callback  callback
- * @param     {function}  callback  `(err, data)`
  * @return    {void}
+ *
+ * @param     {function}  callback  `(err, data)`
  */
 
 function locationsList (callback) {
@@ -321,8 +340,9 @@ function locationsList (callback) {
  * List browsers
  *
  * @callback  callback
- * @param     {function}  callback  `(err, data)`
  * @return    {void}
+ *
+ * @param     {function}  callback  `(err, data)`
  */
 
 function browsersList (callback) {
@@ -339,9 +359,10 @@ function browsersList (callback) {
  * Get browser
  *
  * @callback  callback
+ * @return    {void}
+ *
  * @param     {string}    browserId
  * @param     {function}  callback  `(err, data)`
- * @return    {void}
  */
 
 function browsersGet (browserId, callback) {
@@ -358,8 +379,9 @@ function browsersGet (browserId, callback) {
  * Get account status
  *
  * @callback  callback
- * @param     {function}  callback  `(err, data)`
  * @return    {void}
+ *
+ * @param     {function}  callback  `(err, data)`
  */
 
 function accountStatus (callback) {
@@ -375,11 +397,12 @@ function accountStatus (callback) {
 /**
  * Module interface
  *
+ * @return  {object}                        Methods
+ *
  * @param   {object}  props
  * @param   {string}  props.email           API email
  * @param   {string}  props.apikey          API key
  * @param   {number}  [props.timeout=5000]  Request timeut in ms
- * @return  {object}                        Methods
  */
 
 module.exports = function (props) {
