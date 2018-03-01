@@ -1,3 +1,37 @@
+#### 1.2.6 (2018-03-01)
+
+##### Documentation Changes
+
+* **badges:**  Moved Greenkeeper to the badges ([e07b9f99](https://github.com/fvdm/nodejs-gtmetrix/commit/e07b9f99dfae648f47e1d10337e104572b88de4d))
+
+##### Bug Fixes
+
+* **account:**  Account.status typo ([30619c8a](https://github.com/fvdm/nodejs-gtmetrix/commit/30619c8ac3e48b232fa4971c76c05e5c16704bfb))
+* **response:**  Missing references ([0930b8a8](https://github.com/fvdm/nodejs-gtmetrix/commit/0930b8a8aeb739bdd9e3bc7d961b62906904c046))
+* **pollingCallback:**
+  *  Stop polling when error ([af3ccb0d](https://github.com/fvdm/nodejs-gtmetrix/commit/af3ccb0d12a01d063a2633ad6acfc8149ecbcc37))
+  *  Syntax typo ([bc1434c6](https://github.com/fvdm/nodejs-gtmetrix/commit/bc1434c627b5a971ba7fc034db29679c6b2f987c))
+  *  Enforce type string on error ([#14](https://github.com/fvdm/nodejs-gtmetrix/pull/14)) ([678bd227](https://github.com/fvdm/nodejs-gtmetrix/commit/678bd227ae7aefa82ac76bc86f27b12098417083))
+* **polling:**  Check err.error before match ([#14](https://github.com/fvdm/nodejs-gtmetrix/pull/14)) ([6fe16d0c](https://github.com/fvdm/nodejs-gtmetrix/commit/6fe16d0ca13b6f110a98862361f32b1d66f5eb59))
+
+##### Refactors
+
+* **main:**  Cleaner interface statements ([91e06140](https://github.com/fvdm/nodejs-gtmetrix/commit/91e06140373d590524c15db0425a3f093055afdb))
+* **testGet:**  Reduced complexity ([6e1b2738](https://github.com/fvdm/nodejs-gtmetrix/commit/6e1b2738a268ba94d4788cfbb3c4a8f4b262de84))
+* **pollingCallback:**
+  *  Reduced complexity ([c4bf94b2](https://github.com/fvdm/nodejs-gtmetrix/commit/c4bf94b22ab8b7408e6216c2264d341863d10a70))
+  *  Rewrite response handling ([ad2bc570](https://github.com/fvdm/nodejs-gtmetrix/commit/ad2bc570297387a91f5dcb0dc049641483fca979))
+  *  Clean up redundancy ([9de29973](https://github.com/fvdm/nodejs-gtmetrix/commit/9de29973915b9e1fb30ca76ad335f1022628115e))
+
+##### Tests
+
+* **main:**
+  *  Fixed bad ref ([bafaf5c2](https://github.com/fvdm/nodejs-gtmetrix/commit/bafaf5c250a1c1c47df630628096dc449d589e65))
+  *  Fixed bad test var ([00059abe](https://github.com/fvdm/nodejs-gtmetrix/commit/00059abe91be356b0089035d06c2ada31dc57214))
+  *  Add Interface test ([34209410](https://github.com/fvdm/nodejs-gtmetrix/commit/342094104466db7984343f3a2aef724c3ff141a2))
+* **package:**  Change dev deps to dotest ([cd347553](https://github.com/fvdm/nodejs-gtmetrix/commit/cd347553e8ef185c66b0c8a71423973a06f66790))
+* **config:**  Update Travis CI node versions ([32073c21](https://github.com/fvdm/nodejs-gtmetrix/commit/32073c21eb1b3e10f735e471f025c7711a63a8ad))
+
 #### 1.2.5 (2017-09-09)
 
 ##### Chores
