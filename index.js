@@ -77,24 +77,30 @@ function apiResponse (options, err, res, callback) {
     return;
   }
 
+  // Received data, expecting binary
   if (size && options.binary && type.match (/\/(pdf|jpeg|tar)$/)) {
     callback (null, data);
     return;
   }
 
+  // Received something else
   try {
     data = JSON.parse (data);
   } catch (e) {
     error = doError ('invalid response', e, code, type);
-    data = null;
+    callback (error);
+    return;
   }
 
+  // It's an api error
   if (data && data.error) {
     error = doError ('API error', data.error, code, type);
-    data = null;
+    callback (error);
+    return;
   }
 
-  callback (error, data);
+  // It's real data
+  callback (null, data);
 }
 
 
@@ -162,20 +168,19 @@ function testCreate (params, callback) {
  */
 
 function pollingCallback (props, err, data, callback) {
-  // Error, not waiting = fail
+  // API error saying we need to wait
   if (err && String (err.error).match (/Data not yet available/)) {
-    callback (err);
-    return true;
+    return false;
   }
 
-  // No error, binary expected = ok complete
+  // No API error, binary expected = ok complete
   if (!err && props.binary) {
     callback (null, data);
     return true;
   }
 
-  // No error, non-binary, complete = ok complete
-  if (!err && !props.binary && data.state !== 'started' && data.state !== 'queued') {
+  // No error, non-binary, not running = ok complete
+  if (!err && !props.binary && !String (data.state).match (/^(started|queued)$/)) {
     callback (null, data);
     return true;
   }
@@ -233,7 +238,7 @@ function testGet (testId, resource, polling, callback) {
 
   apiRequest (props, function (err, data) {
     var retryInterval;
-    var check;
+    var complete;
 
     if (err && !polling) {
       callback (err);
@@ -250,17 +255,18 @@ function testGet (testId, resource, polling, callback) {
     }
 
     if (typeof polling === 'number') {
-      check = pollingCallback (props, err, data, callback);
+      complete = pollingCallback (props, err, data, callback);
 
-      if (check) {
+      if (complete) {
         return;
       }
 
+      // Test is still running
       retryInterval = setInterval (() => {
         testGet (testId, resource, (pErr, pData) => {
-          var pCheck = pollingCallback (props, pErr, pData, callback);
+          var pComplete = pollingCallback (props, pErr, pData, callback);
 
-          if (pCheck) {
+          if (pComplete) {
             clearInterval (retryInterval);
           }
         });
