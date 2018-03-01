@@ -162,14 +162,8 @@ function testCreate (params, callback) {
  */
 
 function pollingCallback (props, err, data, callback) {
-  // Error, non-binary, not waiting = fail
-  if (err && !props.binary && String (err.error).match (/Data not yet available/)) {
-    callback (err);
-    return true;
-  }
-
-  // Error, binary expected, not waiting = fail
-  if (err && props.binary && String (err.error).match (/Data not yet available/)) {
+  // Error, not waiting = fail
+  if (err && String (err.error).match (/Data not yet available/)) {
     callback (err);
     return true;
   }
