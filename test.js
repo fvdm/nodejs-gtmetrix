@@ -13,10 +13,10 @@ var app = require (path.join (__dirname, path.sep));
 
 
 // Setup
-// $ env GTMETRIX_EMAIL= GTMETRIX_APIKEY= npm test
-var email = process.env.GTMETRIX_EMAIL || null;
-var apikey = process.env.GTMETRIX_APIKEY || null;
-var timeout = process.env.GTMETRIX_TIMEOUT || 5000;
+// $ GTMETRIX_EMAIL= GTMETRIX_APIKEY= npm test
+var email = process.env.GTMETRIX_EMAIL;
+var apikey = process.env.GTMETRIX_APIKEY;
+var timeout = String (process.env.GTMETRIX_TIMEOUT);
 var location = process.env.GTMETRIX_LOCATION || 2;
 var browser = process.env.GTMETRIX_BROWSER || 3;
 
@@ -28,13 +28,40 @@ var gtmetrix = app ({
 
 var cache = {
   url: 'http://example.net/',
-  location: location,
-  browser: browser
+  location,
+  browse
 };
 
 
-dotest.add ('account.status', function (test) {
-  gtmetrix.account.status (function (err, data) {
+dotest.add ('Interface', test => {
+  const test = gtmetrix && gtmetrix.test;
+  const locations = gtmetrix && gtmetrix.locations;
+  const browsers = gtmetrix && gtmetrix.browsers;
+  const account = gtmetrix && gtmetrix.account;
+
+  test()
+    .isFunction ('fail', 'export', app)
+    .isObject ('fail', 'module', gtmetrix)
+
+    .isObject ('fail', '.test', test)
+    .isFunction ('fail', '.test.create', test && test.create)
+    .isFunction ('fail', '.test.get', test && test.get)
+
+    .isObject ('fail', '.locations', locations)
+    .isFunction ('fail', '.locations.list', locations && locations.list)
+
+    .isObject ('fail', '.browsers', browsers)
+    .isFunction ('fail', '.browsers.list', browsers && browsers.list)
+    .isFunction ('fail', '.browsers.get', browsers && browsers.get)
+
+    .isObject ('fail', '.account', account)
+    .isFunction ('fail', '.account.status', account && account.status)
+    .done();
+});
+
+
+dotest.add ('account.status', test => {
+  gtmetrix.account.status ((err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
       .done ();
@@ -42,8 +69,8 @@ dotest.add ('account.status', function (test) {
 });
 
 
-dotest.add ('browsers.list', function (test) {
-  gtmetrix.browsers.list (function (err, data) {
+dotest.add ('browsers.list', test => {
+  gtmetrix.browsers.list ((err, data) => {
     test (err)
       .isArray ('fail', 'data', data)
       .isNotEmpty ('fail', 'data', data)
@@ -53,8 +80,8 @@ dotest.add ('browsers.list', function (test) {
 });
 
 
-dotest.add ('browsers.get', function (test) {
-  gtmetrix.browsers.get (3, function (err, data) {
+dotest.add ('browsers.get', test => {
+  gtmetrix.browsers.get (3, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
       .isExactly ('warn', 'data.id', data && data.id, 3)
@@ -63,8 +90,8 @@ dotest.add ('browsers.get', function (test) {
 });
 
 
-dotest.add ('locations.list', function (test) {
-  gtmetrix.locations.list (function (err, data) {
+dotest.add ('locations.list', test => {
+  gtmetrix.locations.list ((err, data) => {
     test (err)
       .isArray ('fail', 'data', data)
       .isNotEmpty ('fail', 'data', data)
@@ -74,8 +101,8 @@ dotest.add ('locations.list', function (test) {
 });
 
 
-dotest.add ('test.create', function (test) {
-  gtmetrix.test.create (cache, function (err, data) {
+dotest.add ('test.create', test => {
+  gtmetrix.test.create (cache, (err, data) => {
     cache.test = data;
     test (err)
       .isObject ('fail', 'data', data)
@@ -84,8 +111,8 @@ dotest.add ('test.create', function (test) {
 });
 
 
-dotest.add ('test.get - without polling', function (test) {
-  gtmetrix.test.get (cache.test.test_id, function (err, data) {
+dotest.add ('test.get - without polling', test => {
+  gtmetrix.test.get (cache.test.test_id, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
       .isString ('warn', 'data.state', data && data.state)
@@ -94,8 +121,8 @@ dotest.add ('test.get - without polling', function (test) {
 });
 
 
-dotest.add ('test.get - with polling', function (test) {
-  gtmetrix.test.get (cache.test.test_id, 5000, function (err, data) {
+dotest.add ('test.get - with polling', test => {
+  gtmetrix.test.get (cache.test.test_id, 5000, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
       .isExactly ('fail', 'data.state', data && data.state, 'completed')
@@ -104,8 +131,8 @@ dotest.add ('test.get - with polling', function (test) {
 });
 
 
-dotest.add ('test.get resource - binary with polling', function (test) {
-  gtmetrix.test.get (cache.test.test_id, 'report-pdf-full', 5000, function (err, data) {
+dotest.add ('test.get resource - binary with polling', test => {
+  gtmetrix.test.get (cache.test.test_id, 'report-pdf-full', 5000, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
       .done ();
@@ -113,8 +140,8 @@ dotest.add ('test.get resource - binary with polling', function (test) {
 });
 
 
-dotest.add ('test.get resource - non-binary with polling', function (test) {
-  gtmetrix.test.get (cache.test.test_id, 'yslow', 5000, function (err, data) {
+dotest.add ('test.get resource - non-binary with polling', test => {
+  gtmetrix.test.get (cache.test.test_id, 'yslow', 5000, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
       .isExactly ('fail', 'data.u', data && data.u, cache.url)
@@ -123,8 +150,8 @@ dotest.add ('test.get resource - non-binary with polling', function (test) {
 });
 
 
-dotest.add ('Error: API error - without polling', function (test) {
-  gtmetrix.test.get ('0', function (err, data) {
+dotest.add ('Error: API error - without polling', test => {
+  gtmetrix.test.get ('0', (err, data) => {
     test ()
       .isError ('fail', 'err', err)
       .isExactly ('fail', 'err.message', err && err.message, 'API error')
@@ -134,8 +161,8 @@ dotest.add ('Error: API error - without polling', function (test) {
 });
 
 
-dotest.add ('Error: API error - resource with default polling', function (test) {
-  gtmetrix.test.get ('0', 'yslow', true, function (err, data) {
+dotest.add ('Error: API error - resource with default polling', test => {
+  gtmetrix.test.get ('0', 'yslow', true, (err, data) => {
     test ()
       .isError ('fail', 'err', err)
       .isExactly ('fail', 'err.message', err && err.message, 'API error')
@@ -145,14 +172,14 @@ dotest.add ('Error: API error - resource with default polling', function (test) 
 });
 
 
-dotest.add ('Error: request failed (timeout)', function (test) {
+dotest.add ('Error: request failed (timeout)', test => {
   var tmp = app ({
     email: email,
     apikey: apikey,
     timeout: 1
   });
 
-  tmp.account.status (function (err, data) {
+  tmp.account.status ((err, data) => {
     var error = err && err.error;
 
     test ()
