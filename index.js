@@ -170,7 +170,7 @@ pkg.test.create = (params, callback) => {
   };
 
   apiRequest (props, callback);
-}
+};
 
 
 /**
@@ -323,7 +323,7 @@ pkg.test.get = (testId, resource, polling, callback) => {
   apiRequest (params.props, (err, data) => {
     testResponse (params, err, data, callback);
   });
-}
+};
 
 
 /**
@@ -342,7 +342,7 @@ pkg.locations.list = (callback) => {
   };
 
   apiRequest (props, callback);
-}
+};
 
 
 /**
@@ -361,7 +361,7 @@ pkg.browsers.list = (callback) => {
   };
 
   apiRequest (props, callback);
-}
+};
 
 
 /**
@@ -381,7 +381,7 @@ pkg.browsers.get = (browserId, callback) => {
   };
 
   apiRequest (props, callback);
-}
+};
 
 
 /**
@@ -393,14 +393,14 @@ pkg.browsers.get = (browserId, callback) => {
  * @param     {function}  callback  `(err, data)`
  */
 
-pkg.account.stats = (callback) => {
+pkg.account.status = (callback) => {
   const props = {
     method: 'GET',
     path: 'status'
   };
 
   apiRequest (props, callback);
-}
+};
 
 
 /**
