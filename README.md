@@ -31,7 +31,15 @@ const test = {
   browser: 3
 };
 
-gtmetrix.test.create (test, console.log);
+gtmetrix.test.create (test, (err, data) => {
+  if (err) {
+    console.log (err);
+    return;
+  }
+
+  // Poll test every 5 seconds for completion, then log the result
+  gtmetrix.test.get (data.test_id, 5000, console.log);
+});
 ```
 
 ##### Result
