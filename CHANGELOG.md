@@ -1,3 +1,9 @@
+#### 1.2.7 (2018-03-02)
+
+##### Bug Fixes
+
+* **config:**  parseInt timeout and defaults ([db336a14](https://github.com/fvdm/nodejs-gtmetrix/commit/db336a142f4b582da931f45fb5f96ab6346138b0))
+
 #### 1.2.6 (2018-03-01)
 
 ##### Documentation Changes
