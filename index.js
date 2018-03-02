@@ -1,5 +1,12 @@
 const http = require ('httpreq');
 
+// Default config
+const defaults = {
+  email: null,
+  apikey: null,
+  timeout: 5000
+};
+
 let pkg = {
   test: {
     get: null
@@ -9,12 +16,7 @@ let pkg = {
   account: {}
 };
 
-// Defaults
-let config = {
-  email: null,
-  apikey: null,
-  timeout: 5000
-};
+let config = {};
 
 
 /**
@@ -141,7 +143,7 @@ function apiRequest (props, callback) {
     headers: {
       'User-Agent': 'gtmetrix.js (https://www.npmjs.com/package/gtmetrix)'
     },
-    timeout: config.timeout,
+    timeout: parseInt (config.timeout, 10) || defaults.timeout,
     auth: config.email + ':' + config.apikey,
     binary: props.binary || false
   };
