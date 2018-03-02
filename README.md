@@ -42,13 +42,6 @@ gtmetrix.test.create (test, (err, data) => {
 });
 ```
 
-##### Result
-
-```js
-{ test_id: 'Ao0AYQbz',
-  poll_state_url: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz' }
-```
-
 
 Installation
 ------------
