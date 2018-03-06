@@ -87,14 +87,14 @@ API error        | API returned an error  | `error` `statusCode` `contentType`
 
 
 ### test.create
-**( params, callback )**
+**( params, [callback] )**
 
 Run a test.
 
 argument | type     | required | description
 :--------|:---------|:---------|:-----------------
 params   | object   | yes      | Test settings
-callback | function | no       | Callback function
+callback | function | no       | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-test-start)
 
@@ -118,7 +118,7 @@ gtmetrix.test.create (test, console.log);
 
 
 ### test.get
-**( testId, [resource], [polling], callback )**
+**( testId, [resource], [polling], [callback] )**
 
 Get details about a test or one of its resources.
 
@@ -131,7 +131,7 @@ argument | type     | required | description
 testId   | string   | yes      | Test `id` to look up
 resource | string   | no       | Retrieve a test resource
 polling  | number   | no       | Retry until completion, in ms
-callback | function | no       | Callback function
+callback | function | no       | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-test-state)
 
@@ -219,13 +219,13 @@ yslow           | no     | JS object | YSlow report
 
 
 ### locations.list
-**( callback )**
+**( [callback] )**
 
 Get a list of available test locations.
 
 argument | type     | required | description
-:--------|:---------|:---------|:-----------------
-callback | function | no       | Callback function
+:--------|:---------|:---------|:------------------------
+callback | function | no       | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-locations)
 
@@ -243,13 +243,13 @@ gtmetrix.locations.list (console.log);
 
 
 ### browsers.list
-**( callback )**
+**( [callback] )**
 
 Get a list of available test browsers.
 
 argument | type     | required | description
-:--------|:---------|:---------|:-----------------
-callback | function | no       | Callback function
+:--------|:---------|:---------|:------------------------
+callback | function | no       | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-browsers)
 
@@ -278,14 +278,14 @@ gtmetrix.browsers.list (console.log);
 
 
 ### browsers.get
-**( browserId, callback )**
+**( browserId, [callback] )**
 
 Get details about a test browser.
 
 argument  | type     | required | description
 :---------|:---------|:---------|:-----------------------
 browserId | number   | yes      | Browser `id` to look up
-callback  | function | no       | Callback function
+callback  | function | no       | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-browsers-details)
 
@@ -314,13 +314,13 @@ gtmetrix.browsers.get (3, console.log);
 
 
 ### account.status
-**( callback )**
+**( [callback] )**
 
 Information about your account.
 
 argument | type     | required | description
-:--------|:---------|:---------|:-----------------
-callback | function | no       | Callback function
+:--------|:---------|:---------|:------------------------
+callback | function | no       | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-status)
 
