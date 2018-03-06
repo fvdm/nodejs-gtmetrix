@@ -110,6 +110,12 @@ const test = {
 gtmetrix.test.create (test, console.log);
 ```
 
+```js
+{ credits_left: 68,
+  test_id: 'Ao0AYQbz',
+  poll_state_url: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz' }
+```
+
 
 ### test.get
 **( testId, [resource], [polling], callback )**
@@ -138,12 +144,50 @@ Get what is currently available, without waiting for completion.
 gtmetrix.test.get ('Ao0AYQbz', console.log);
 ```
 
+```js
+{ resources: {}, error: '', results: {}, state: 'started' }
+```
+
 
 Wait for completion and then get the details.
 
 ```js
 // Get test result when it is complete, retry every 5 seconds (5000 ms)
 gtmetrix.test.get ('Ao0AYQbz', 5000, console.log);
+```
+
+```js
+{ resources:
+   { report_pdf: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz/report-pdf',
+     pagespeed: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz/pagespeed',
+     har: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz/har',
+     pagespeed_files: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz/pagespeed-files',
+     report_pdf_full: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz/report-pdf?full=1',
+     yslow: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz/yslow',
+     screenshot: 'https://gtmetrix.com/api/0.1/test/Ao0AYQbz/screenshot' },
+  error: '',
+  results:
+   { onload_time: 185,
+     first_contentful_paint_time: 221,
+     page_elements: 2,
+     report_url: 'https://gtmetrix.com/reports/example.net/Ao0AYQbz',
+     redirect_duration: 0,
+     first_paint_time: 221,
+     dom_content_loaded_duration: null,
+     dom_content_loaded_time: 184,
+     dom_interactive_time: 183,
+     page_bytes: 1911,
+     page_load_time: 185,
+     html_bytes: 277,
+     fully_loaded_time: 307,
+     html_load_time: 145,
+     rum_speed_index: 221,
+     yslow_score: 99,
+     pagespeed_score: 99,
+     backend_duration: 68,
+     onload_duration: 0,
+     connect_duration: 77 },
+  state: 'completed' }
 ```
 
 
@@ -190,6 +234,13 @@ callback | function | no       | Callback function
 gtmetrix.locations.list (console.log);
 ```
 
+```js
+[ { name: 'Vancouver, Canada',
+    default: true,
+    id: '1',
+    browsers: [ 1, 3 ] } ]
+```
+
 
 ### browsers.list
 **( callback )**
@@ -205,6 +256,24 @@ callback | function | no       | Callback function
 
 ```js
 gtmetrix.browsers.list (console.log);
+```
+
+```js
+[ { features:
+     { dns: true,
+       cookies: true,
+       adblock: true,
+       http_auth: true,
+       video: true,
+       user_agent: true,
+       throttle: true,
+       filtering: true,
+       resolution: true },
+    browser: 'firefox',
+    name: 'Firefox (Desktop)',
+    platform: 'desktop',
+    id: 1,
+    device: '' } ]
 ```
 
 
@@ -225,6 +294,24 @@ callback  | function | no       | Callback function
 gtmetrix.browsers.get (3, console.log);
 ```
 
+```js
+{ features:
+   { dns: true,
+     cookies: true,
+     adblock: true,
+     http_auth: true,
+     video: true,
+     user_agent: true,
+     throttle: true,
+     filtering: true,
+     resolution: true },
+  browser: 'chrome',
+  name: 'Chrome (Desktop)',
+  platform: 'desktop',
+  id: 3,
+  device: '' }
+```
+
 
 ### account.status
 **( callback )**
@@ -240,6 +327,10 @@ callback | function | no       | Callback function
 
 ```js
 gtmetrix.account.status (console.log);
+```
+
+```js
+{ api_refill: 1234567890, api_credits: 68 }
 ```
 
 
