@@ -39,10 +39,11 @@ _(For readability I left out the error handling)_
 
 ## Installation
 
-`npm install gtmetrix --save`
+`npm i gtmetrix`
 
 You need an account at GTmetrix to get an API key.
-The API key can be found [here](https://gtmetrix.com/api/#api-details) when you are logged in.
+The API key can be found [here](https://gtmetrix.com/api/#api-details) when you
+are logged in.
 
 
 ## Configuration
@@ -59,7 +60,7 @@ timeout | integer | no       | 5000    | Wait timeout in ms
 #### Example
 
 ```js
-var gtmetrix = require ('gtmetrix') ({
+const gtmetrix = require ('gtmetrix') ({
   email: 'your@mail.tld',
   apikey: 'abc123',
   timeout: 10000
@@ -100,7 +101,7 @@ callback | function | yes      | Callback function
 
 ```js
 // Run test from London with Google Chrome
-var test = {
+const test = {
   url: 'http://example.net/',
   location: 2,
   browser: 3
@@ -131,10 +132,16 @@ callback | function | yes      | Callback function
 
 #### Test details
 
-```js
-// Just get test result
-gtmetrix.test.get ('Ao0AYQbz', console.log);
+Get what is currently available, without waiting for completion.
 
+```js
+gtmetrix.test.get ('Ao0AYQbz', console.log);
+```
+
+
+Wait for completion and then get the details.
+
+```js
 // Get test result when it is complete, retry every 5 seconds (5000 ms)
 gtmetrix.test.get ('Ao0AYQbz', 5000, console.log);
 ```
@@ -142,10 +149,10 @@ gtmetrix.test.get ('Ao0AYQbz', 5000, console.log);
 
 #### Retrieve screenshot
 
-And retry every 5000 ms until it's ready.
+Retry every 5000 ms until it's ready.
 
 ```js
-var fs = require ('fs');
+const fs = require ('fs');
 
 gtmetrix.test.get ('Ao0AYQbz', 'screenshot', 5000).then (data =>
   fs.writeFile (__dirname + '/screenshot.jpg', data, console.log));
@@ -261,7 +268,7 @@ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-For more information, please refer to <http://unlicense.org>
+For more information, please refer to <https://unlicense.org>
 
 
 ## Author
