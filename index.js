@@ -1,4 +1,5 @@
 const http = require ('httpreq');
+const { promisify } = require ('util');
 
 // Default config
 const defaults = {
@@ -158,13 +159,13 @@ function apiRequest (props, callback) {
  * Create test
  *
  * @callback  callback
- * @return    {void}
+ * @return    {Promise<object>}
  *
  * @param     {object}    params
- * @param     {function}  callback  `(err, data)`
+ * @param     {function}  [callback]  `(err, data)`
  */
 
-pkg.test.create = (params, callback) => {
+pkg.test.create = promisify ((params, callback) => {
   const props = {
     method: 'POST',
     path: 'test',
@@ -172,7 +173,7 @@ pkg.test.create = (params, callback) => {
   };
 
   apiRequest (props, callback);
-};
+});
 
 
 /**
@@ -275,15 +276,15 @@ function testResponse (params, err, data, callback) {
  * Get test result
  *
  * @callback  callback
- * @return    {void}
+ * @return    {Promise<object>}
  *
  * @param     {string}    testId      Test ID
  * @param     {string}    [resource]  Resource to get, i.e. `screenshot`
  * @param     {number}    [polling]   Poll state until completion, in ms
- * @param     {function}  callback    `(err, data)`
+ * @param     {function}  [callback]  `(err, data)`
  */
 
-pkg.test.get = (testId, resource, polling, callback) => {
+pkg.test.get = promisify ((testId, resource, polling, callback) => {
   let resourceInfo = {};
   let params = {
     testId,
@@ -325,84 +326,84 @@ pkg.test.get = (testId, resource, polling, callback) => {
   apiRequest (params.props, (err, data) => {
     testResponse (params, err, data, callback);
   });
-};
+});
 
 
 /**
  * List locations
  *
  * @callback  callback
- * @return    {void}
+ * @return    {Promise<object>}
  *
- * @param     {function}  callback  `(err, data)`
+ * @param     {function}  [callback]  `(err, data)`
  */
 
-pkg.locations.list = (callback) => {
+pkg.locations.list = promisify ((callback) => {
   const props = {
     method: 'GET',
     path: 'locations'
   };
 
   apiRequest (props, callback);
-};
+});
 
 
 /**
  * List browsers
  *
  * @callback  callback
- * @return    {void}
+ * @return    {Promise<object>}
  *
- * @param     {function}  callback  `(err, data)`
+ * @param     {function}  [callback]  `(err, data)`
  */
 
-pkg.browsers.list = (callback) => {
+pkg.browsers.list = promisify ((callback) => {
   const props = {
     method: 'GET',
     path: 'browsers'
   };
 
   apiRequest (props, callback);
-};
+});
 
 
 /**
  * Get browser
  *
  * @callback  callback
- * @return    {void}
+ * @return    {Promise<object>}
  *
  * @param     {string}    browserId
- * @param     {function}  callback  `(err, data)`
+ * @param     {function}  [callback]  `(err, data)`
  */
 
-pkg.browsers.get = (browserId, callback) => {
+pkg.browsers.get = promisify ((browserId, callback) => {
   const props = {
     method: 'GET',
     path: 'browsers/' + browserId
   };
 
   apiRequest (props, callback);
-};
+});
 
 
 /**
  * Get account status
  *
  * @callback  callback
- * @return    {void}
+ * @return    {Promise<object>}
  *
- * @param     {function}  callback  `(err, data)`
+ * @param     {function}  [callback]  `(err, data)`
  */
 
-pkg.account.status = (callback) => {
+pkg.account.status = promisify ((callback) => {
   const props = {
     method: 'GET',
     path: 'status'
   };
 
   apiRequest (props, callback);
-};
+});
 
 
 /**

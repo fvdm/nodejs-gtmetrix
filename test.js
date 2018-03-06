@@ -60,7 +60,40 @@ dotest.add ('Interface', test => {
 });
 
 
-dotest.add ('account.status', test => {
+/**
+ * Promise handling
+ */
+
+dotest.add ('Promise - account.status', test => {
+  gtmetrix.account.status ()
+    .catch (err => test (err).done())
+    .then (data => test()
+      .isObject ('fail', 'data', data)
+      .done()
+    );
+});
+
+
+dotest.add ('Promise - Error: API error - without polling', test => {
+  gtmetrix.test.get ('0')
+    .catch (err => {
+      test()
+        .isError ('fail', 'err', err)
+        .isExactly ('fail', 'err.message', err && err.message, 'API error');
+    })
+    .then (data => {
+      test()
+        .isUndefined ('fail', 'data', data)
+        .done();
+    });
+});
+
+
+/**
+ * Callback handling
+ */
+
+dotest.add ('Callback - account.status', test => {
   gtmetrix.account.status ((err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
@@ -69,7 +102,7 @@ dotest.add ('account.status', test => {
 });
 
 
-dotest.add ('browsers.list', test => {
+dotest.add ('Callback - browsers.list', test => {
   gtmetrix.browsers.list ((err, data) => {
     test (err)
       .isArray ('fail', 'data', data)
@@ -80,7 +113,7 @@ dotest.add ('browsers.list', test => {
 });
 
 
-dotest.add ('browsers.get', test => {
+dotest.add ('Callback - browsers.get', test => {
   gtmetrix.browsers.get (3, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
@@ -90,7 +123,7 @@ dotest.add ('browsers.get', test => {
 });
 
 
-dotest.add ('locations.list', test => {
+dotest.add ('Callback - locations.list', test => {
   gtmetrix.locations.list ((err, data) => {
     test (err)
       .isArray ('fail', 'data', data)
@@ -101,7 +134,7 @@ dotest.add ('locations.list', test => {
 });
 
 
-dotest.add ('test.create', test => {
+dotest.add ('Callback - test.create', test => {
   gtmetrix.test.create (cache, (err, data) => {
     cache.test = data;
     test (err)
@@ -111,7 +144,7 @@ dotest.add ('test.create', test => {
 });
 
 
-dotest.add ('test.get - without polling', test => {
+dotest.add ('Callback - test.get - without polling', test => {
   gtmetrix.test.get (cache.test.test_id, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
@@ -121,7 +154,7 @@ dotest.add ('test.get - without polling', test => {
 });
 
 
-dotest.add ('test.get - with polling', test => {
+dotest.add ('Callback - test.get - with polling', test => {
   gtmetrix.test.get (cache.test.test_id, 5000, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
@@ -131,7 +164,7 @@ dotest.add ('test.get - with polling', test => {
 });
 
 
-dotest.add ('test.get resource - binary with polling', test => {
+dotest.add ('Callback - test.get resource - binary with polling', test => {
   gtmetrix.test.get (cache.test.test_id, 'report-pdf-full', 5000, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
@@ -140,7 +173,7 @@ dotest.add ('test.get resource - binary with polling', test => {
 });
 
 
-dotest.add ('test.get resource - non-binary with polling', test => {
+dotest.add ('Callback - test.get resource - non-binary with polling', test => {
   gtmetrix.test.get (cache.test.test_id, 'yslow', 5000, (err, data) => {
     test (err)
       .isObject ('fail', 'data', data)
@@ -150,7 +183,7 @@ dotest.add ('test.get resource - non-binary with polling', test => {
 });
 
 
-dotest.add ('Error: API error - without polling', test => {
+dotest.add ('Callback - Error: API error - without polling', test => {
   gtmetrix.test.get ('0', (err, data) => {
     test ()
       .isError ('fail', 'err', err)
@@ -161,7 +194,7 @@ dotest.add ('Error: API error - without polling', test => {
 });
 
 
-dotest.add ('Error: API error - resource with default polling', test => {
+dotest.add ('Callback - Error: API error - resource with default polling', test => {
   gtmetrix.test.get ('0', 'yslow', true, (err, data) => {
     test ()
       .isError ('fail', 'err', err)
@@ -172,7 +205,7 @@ dotest.add ('Error: API error - resource with default polling', test => {
 });
 
 
-dotest.add ('Error: request failed (timeout)', test => {
+dotest.add ('Callback - Error: request failed (timeout)', test => {
   var tmp = app ({
     email: email,
     apikey: apikey,

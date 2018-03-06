@@ -25,22 +25,18 @@ const gtmetrix = require ('gtmetrix') ({
 });
 
 // Run test from London with Google Chrome
-const test = {
+const testDetails = {
   url: 'http://example.net/',
   location: 2,
   browser: 3
 };
 
-gtmetrix.test.create (test, (err, data) => {
-  if (err) {
-    console.log (err);
-    return;
-  }
-
-  // Poll test every 5 seconds for completion, then log the result
-  gtmetrix.test.get (data.test_id, 5000, console.log);
-});
+// Poll test every 5 seconds for completion, then log the result
+gtmetrix.test.create (testDetails).then (data =>
+  gtmetrix.test.get (data.test_id, 5000).then (console.log));
 ```
+
+_(For readability I left out the error handling)_
 
 
 Installation
@@ -75,10 +71,17 @@ var gtmetrix = require ('gtmetrix') ({
 ```
 
 
-Error handling
---------------
+Methods
+-------
 
-The callback functions get the standard `err` and `data` arguments.
+All methods return promises, but you can also provide a callback function
+instead which gets the standard `err` and `data` arguments.
+
+In the examples below I use a mix of callbacks and promises, but each method
+can do both. I also left out the error handling for better readability.
+
+
+### Errors
 
 message          | description            | properties
 :----------------|:-----------------------|:----------------------------------
@@ -86,9 +89,6 @@ request failed   | Request cannot be made | `error`
 invalid response | Can't process response | `error` `statusCode` `contentType`
 API error        | API returned an error  | `error` `statusCode` `contentType`
 
-
-Methods
--------
 
 ### test.create
 **( params, callback )**
@@ -152,12 +152,8 @@ And retry every 5000 ms until it's ready.
 ```js
 var fs = require ('fs');
 
-gtmetrix.test.get ('Ao0AYQbz', 'screenshot', 5000, function (err, data) {
-  if (err) { return console.log (err); }
-
-  // Store on disk
-  fs.writeFile (__dirname + '/screenshot.jpg', data, console.log);
-});
+gtmetrix.test.get ('Ao0AYQbz', 'screenshot', 5000).then (data =>
+  fs.writeFile (__dirname + '/screenshot.jpg', data, console.log));
 ```
 
 ###### Resources
