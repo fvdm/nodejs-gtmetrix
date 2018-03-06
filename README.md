@@ -1,5 +1,4 @@
-gtmetrix
-========
+# gtmetrix
 
 Node.js module for the GTmetrix API to run and access tests.
 
@@ -15,8 +14,7 @@ Node.js module for the GTmetrix API to run and access tests.
 * [API documentation](https://gtmetrix.com/api/)
 
 
-Example
--------
+## Example
 
 ```js
 const gtmetrix = require ('gtmetrix') ({
@@ -39,8 +37,7 @@ gtmetrix.test.create (testDetails).then (data =>
 _(For readability I left out the error handling)_
 
 
-Installation
-------------
+## Installation
 
 `npm install gtmetrix --save`
 
@@ -48,8 +45,7 @@ You need an account at GTmetrix to get an API key.
 The API key can be found [here](https://gtmetrix.com/api/#api-details) when you are logged in.
 
 
-Configuration
--------------
+## Configuration
 
 The setup function takes an _object_ with these settings.
 
@@ -60,7 +56,7 @@ apikey  | string  | yes      |         | Your account API key
 timeout | integer | no       | 5000    | Wait timeout in ms
 
 
-##### Example
+#### Example
 
 ```js
 var gtmetrix = require ('gtmetrix') ({
@@ -71,8 +67,7 @@ var gtmetrix = require ('gtmetrix') ({
 ```
 
 
-Methods
--------
+## Methods
 
 All methods return promises, but you can also provide a callback function
 instead which gets the standard `err` and `data` arguments.
@@ -81,7 +76,7 @@ In the examples below I use a mix of callbacks and promises, but each method
 can do both. I also left out the error handling for better readability.
 
 
-### Errors
+#### Errors
 
 message          | description            | properties
 :----------------|:-----------------------|:----------------------------------
@@ -134,7 +129,7 @@ callback | function | yes      | Callback function
 [API documentation](https://gtmetrix.com/api/#api-test-state)
 
 
-##### Test details
+#### Test details
 
 ```js
 // Just get test result
@@ -145,7 +140,7 @@ gtmetrix.test.get ('Ao0AYQbz', 5000, console.log);
 ```
 
 
-##### Retrieve screenshot
+#### Retrieve screenshot
 
 And retry every 5000 ms until it's ready.
 
@@ -156,7 +151,8 @@ gtmetrix.test.get ('Ao0AYQbz', 'screenshot', 5000).then (data =>
   fs.writeFile (__dirname + '/screenshot.jpg', data, console.log));
 ```
 
-###### Resources
+
+##### Resources
 
 resource        | binary | content   | description
 :---------------|:-------|:----------|:---------------------------------------
@@ -240,8 +236,7 @@ gtmetrix.account.status (console.log);
 ```
 
 
-License
--------
+## Unlicense
 
 This is free and unencumbered software released into the public domain.
 
@@ -269,8 +264,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org>
 
 
-Author
-------
+## Author
 
 [Franklin van de Meent](https://frankl.in)
 
