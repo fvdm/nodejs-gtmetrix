@@ -1,5 +1,5 @@
 const http = require ('httpreq');
-const { promisify } = require ('util');
+const { promisify } = require ('es6-promisify');
 
 // Default config
 const defaults = {
