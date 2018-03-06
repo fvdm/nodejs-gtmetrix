@@ -94,7 +94,7 @@ Run a test.
 argument | type     | required | description
 :--------|:---------|:---------|:-----------------
 params   | object   | yes      | Test settings
-callback | function | yes      | Callback function
+callback | function | no       | Callback function
 
 [API documentation](https://gtmetrix.com/api/#api-test-start)
 
@@ -125,7 +125,7 @@ argument | type     | required | description
 testId   | string   | yes      | Test `id` to look up
 resource | string   | no       | Retrieve a test resource
 polling  | number   | no       | Retry until completion, in ms
-callback | function | yes      | Callback function
+callback | function | no       | Callback function
 
 [API documentation](https://gtmetrix.com/api/#api-test-state)
 
@@ -181,7 +181,7 @@ Get a list of available test locations.
 
 argument | type     | required | description
 :--------|:---------|:---------|:-----------------
-callback | function | yes      | Callback function
+callback | function | no       | Callback function
 
 [API documentation](https://gtmetrix.com/api/#api-locations)
 
@@ -198,7 +198,7 @@ Get a list of available test browsers.
 
 argument | type     | required | description
 :--------|:---------|:---------|:-----------------
-callback | function | yes      | Callback function
+callback | function | no       | Callback function
 
 [API documentation](https://gtmetrix.com/api/#api-browsers)
 
@@ -216,7 +216,7 @@ Get details about a test browser.
 argument  | type     | required | description
 :---------|:---------|:---------|:-----------------------
 browserId | number   | yes      | Browser `id` to look up
-callback  | function | yes      | Callback function
+callback  | function | no       | Callback function
 
 [API documentation](https://gtmetrix.com/api/#api-browsers-details)
 
@@ -233,7 +233,7 @@ Information about your account.
 
 argument | type     | required | description
 :--------|:---------|:---------|:-----------------
-callback | function | yes      | Callback function
+callback | function | no       | Callback function
 
 [API documentation](https://gtmetrix.com/api/#api-status)
 
