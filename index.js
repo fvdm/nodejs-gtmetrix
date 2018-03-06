@@ -1,5 +1,6 @@
-const http = require ('httpreq');
+const { doRequest } = require ('httpreq');
 const { promisify } = require ('es6-promisify');
+
 
 // Default config
 const defaults = {
@@ -149,7 +150,7 @@ function apiRequest (props, callback) {
     binary: props.binary || false
   };
 
-  http.doRequest (options, (err, res) => {
+  doRequest (options, (err, res) => {
     apiResponse (options, err, res, callback);
   });
 }
