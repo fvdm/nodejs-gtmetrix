@@ -1,3 +1,28 @@
+### 1.3.0 (2018-03-06)
+
+##### Documentation Changes
+
+* **readme:**
+  *  Add output examples ([a6f65647](https://github.com/fvdm/nodejs-gtmetrix/commit/a6f656472070c3dc21d340d7c2f3478b27cd9bf1))
+  *  Callback arg is no longer required ([b20aa309](https://github.com/fvdm/nodejs-gtmetrix/commit/b20aa30925fa0ec0c8f6c9cdb4e94a73f32516bb))
+  *  Minor edits ([0a1af5f0](https://github.com/fvdm/nodejs-gtmetrix/commit/0a1af5f0586398a39c800602f2f7567e77ae4a0c))
+  *  Better parsable syntax ([3ace947d](https://github.com/fvdm/nodejs-gtmetrix/commit/3ace947d10aead442b25c09da0f37ef01fa98248))
+  *  Removed result from example ([6e858c13](https://github.com/fvdm/nodejs-gtmetrix/commit/6e858c13ea5939d540bd3a0b7462e2b003d23f3f))
+  *  Full code example ([545b7021](https://github.com/fvdm/nodejs-gtmetrix/commit/545b7021f86c7f9173a75af77414e252b6339b6d))
+
+##### New Features
+
+* **interface:**  Promisified all methods ([54a74b59](https://github.com/fvdm/nodejs-gtmetrix/commit/54a74b59052c514dbf4b008f1eefae2f2ac8e1f3))
+
+##### Refactors
+
+* **interface:**  Switched to es6-promisify ([4dfae869](https://github.com/fvdm/nodejs-gtmetrix/commit/4dfae869d147977959cbd3690529fa3ba6c58b1c))
+* **package:**  Minimum node version 8.0.0 ([ad64bb9a](https://github.com/fvdm/nodejs-gtmetrix/commit/ad64bb9a6744d9b4447096678628cf2a7ac2881d))
+
+##### Code Style Changes
+
+* **syntax:**  Only set doRequest of httpreq ([f24606f6](https://github.com/fvdm/nodejs-gtmetrix/commit/f24606f64ba1d954ca6115e66a463394d130e4b3))
+
 #### 1.2.7 (2018-03-02)
 
 ##### Bug Fixes
