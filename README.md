@@ -54,7 +54,7 @@ name    | type    | required | default | description
 :-------|:--------|:---------|:--------|:--------------------
 email   | string  | yes      |         | Your account email
 apikey  | string  | yes      |         | Your account API key
-timeout | integer | no       | 5000    | Wait timeout in ms
+timeout | int     | no       | 5000    | Wait timeout in ms
 
 
 #### Example
@@ -130,7 +130,7 @@ argument | type     | required | description
 :--------|:---------|:---------|:-----------------------------
 testId   | string   | yes      | Test `id` to look up
 resource | string   | no       | Retrieve a test resource
-polling  | number   | no       | Retry until completion, in ms
+polling  | int      | no       | Retry until completion, in ms
 callback | function | no       | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-test-state)
@@ -152,7 +152,7 @@ gtmetrix.test.get ('Ao0AYQbz', console.log);
 Wait for completion and then get the details.
 
 ```js
-// Get test result when it is complete, retry every 5 seconds (5000 ms)
+// Retry every 5 seconds (5000 ms)
 gtmetrix.test.get ('Ao0AYQbz', 5000, console.log);
 ```
 
@@ -284,7 +284,7 @@ Get details about a test browser.
 
 argument  | type     | required | description
 :---------|:---------|:---------|:-----------------------
-browserId | number   | yes      | Browser `id` to look up
+browserId | int      | yes      | Browser to look up
 callback  | function | no       | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-browsers-details)
@@ -366,4 +366,6 @@ For more information, please refer to <https://unlicense.org>
 
 [Franklin van de Meent](https://frankl.in)
 
-[![Buy me a coffee](https://frankl.in/u/kofi/kofi-readme.png)](https://ko-fi.com/franklin)
+Is this project useful to you?
+[Buy me a coffee](https://ko-fi.com/franklin)
+to help me stay awake while debugging.
