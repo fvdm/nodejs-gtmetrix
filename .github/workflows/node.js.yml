@@ -33,6 +33,12 @@ jobs:
     - run: git fetch --prune --unshallow
     - run: npm install
     - run: npm test
+      env:
+        GTMETRIX_EMAIL: ${{ secrets.GTMETRIX_EMAIL }}
+        GTMETRIX_APIKEY: ${{ secrets.GTMETRIX_APIKEY }}
+        GTMETRIX_TIMEOUT: ${{ secrets.GTMETRIX_TIMEOUT }}
+        GTMETRIX_LOCATION: ${{ secrets.GTMETRIX_LOCATION }}
+        GTMETRIX_BROWSER: ${{ secrets.GTMETRIX_BROWSER }}
     - run: npm audit --production
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
