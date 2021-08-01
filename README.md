@@ -3,9 +3,8 @@
 Node.js module for the GTmetrix API to run and access tests.
 
 [![npm](https://img.shields.io/npm/v/gtmetrix.svg?maxAge=3600)](https://github.com/fvdm/nodejs-gtmetrix/blob/master/CHANGELOG.md)
-[![Build Status](https://travis-ci.org/fvdm/nodejs-gtmetrix.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-gtmetrix)
+[![Build Status](https://github.com/fvdm/nodejs-gtmetrix/actions/workflows/node.js.yml/badge.svg?branch=master)](https://github.com/fvdm/nodejs-gtmetrix/actions/workflows/node.js.yml)
 [![Coverage Status](https://coveralls.io/repos/github/fvdm/nodejs-gtmetrix/badge.svg?branch=master)](https://coveralls.io/github/fvdm/nodejs-gtmetrix?branch=master)
-[![Greenkeeper](https://badges.greenkeeper.io/fvdm/nodejs-gtmetrix.svg)](https://greenkeeper.io/)
 
 * [Node.js](https://nodejs.org)
 * [GTMetrix](https://gtmetrix.com)
@@ -316,9 +315,9 @@ gtmetrix.browsers.get (3, console.log);
 
 Information about your account.
 
-argument | type     | required | description
-:--------|:---------|:---------|:------------------------
-callback | function | no       | `(err, data)` or promise
+argument   | type     | description
+:----------|:---------|:-----------
+[callback] | function | `(err, data)` or promise
 
 [API documentation](https://gtmetrix.com/api/#api-status)
 
@@ -362,8 +361,5 @@ For more information, please refer to <https://unlicense.org>
 
 ## Author
 
-[Franklin van de Meent](https://frankl.in)
-
-Is this project useful to you?
-[Buy me a coffee](https://ko-fi.com/franklin)
-to help me stay awake while debugging.
+[Franklin](https://fvdm.com)
+| [Buy me a coffee](https://fvdm.com/donating)

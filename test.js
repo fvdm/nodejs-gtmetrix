@@ -1,12 +1,3 @@
-/*
-Name:           gtmetrix - test.js
-Author:         Franklin van de Meent (https://frankl.in)
-Source & docs:  https://github.com/fvdm/nodejs-gtmetrix
-Feedback:       https://github.com/fvdm/nodejs-gtmetrix/issues
-License:        Unlicense / Public Domain (see UNLICENSE file)
-                (https://github.com/fvdm/nodejs-gtmetrix/raw/develop/LICENSE)
-*/
-
 var path = require ('path');
 var dotest = require ('dotest');
 var app = require (path.join (__dirname, path.sep));

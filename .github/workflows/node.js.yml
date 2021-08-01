@@ -1,0 +1,53 @@
+name: "Node.js"
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+
+jobs:
+  lts_versions:
+    name: "Get versions"
+    runs-on: ubuntu-latest
+    steps:
+      - id: set-matrix
+        run: echo "::set-output name=matrix::$(curl -s https://raw.githubusercontent.com/fvdm/nodejs-versions/main/lts.json)"
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+  build:
+    name: "Node"
+    needs: lts_versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ${{ fromJson(needs.lts_versions.outputs.matrix) }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test on Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: git fetch --prune --unshallow
+    - run: npm install
+    - run: npm test
+    - run: npm audit --production
+    - name: Coveralls Parallel
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        flag-name: node-${{ matrix.node-version }}
+        parallel: true
+
+  finish:
+    name: "Finish"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel-finished: true
