@@ -6,16 +6,16 @@ const { promisify } = require ('es6-promisify');
 const defaults = {
   email: null,
   apikey: null,
-  timeout: 5000
+  timeout: 5000,
 };
 
 let pkg = {
   test: {
-    get: null
+    get: null,
   },
   locations: {},
   browsers: {},
-  account: {}
+  account: {},
 };
 
 let config = {};
@@ -31,7 +31,7 @@ let config = {};
 function resourceType (name) {
   let info = {
     binary: false,
-    path: name.replace ('_', '-')
+    path: name.replace ('_', '-'),
   };
 
   if (info.path.match (/^(filmstrip|pagespeed-files|report-pdf(-full)?|screenshot|video)$/)) {
@@ -112,7 +112,8 @@ function apiResponse (options, err, res, callback) {
       callback (error);
       return;
     }
-  } catch (e) {
+  }
+  catch (e) {
     error = doError ('invalid response', e, code, type);
     callback (error);
     return;
@@ -143,11 +144,11 @@ function apiRequest (props, callback) {
     parameters: props.params || null,
     method: props.method,
     headers: {
-      'User-Agent': 'gtmetrix.js (https://www.npmjs.com/package/gtmetrix)'
+      'User-Agent': 'gtmetrix.js (https://www.npmjs.com/package/gtmetrix)',
     },
     timeout: parseInt (config.timeout, 10) || defaults.timeout,
     auth: config.email + ':' + config.apikey,
-    binary: props.binary || false
+    binary: props.binary || false,
   };
 
   doRequest (options, (err, res) => {
@@ -170,7 +171,7 @@ pkg.test.create = promisify ((params, callback) => {
   const props = {
     method: 'POST',
     path: 'test',
-    params: params
+    params: params,
   };
 
   apiRequest (props, callback);
@@ -293,8 +294,8 @@ pkg.test.get = promisify ((testId, resource, polling, callback) => {
     polling,
     props: {
       method: 'GET',
-      path: 'test/' + testId
-    }
+      path: 'test/' + testId,
+    },
   };
 
   if (typeof polling === 'function') {
@@ -342,7 +343,7 @@ pkg.test.get = promisify ((testId, resource, polling, callback) => {
 pkg.locations.list = promisify ((callback) => {
   const props = {
     method: 'GET',
-    path: 'locations'
+    path: 'locations',
   };
 
   apiRequest (props, callback);
@@ -361,7 +362,7 @@ pkg.locations.list = promisify ((callback) => {
 pkg.browsers.list = promisify ((callback) => {
   const props = {
     method: 'GET',
-    path: 'browsers'
+    path: 'browsers',
   };
 
   apiRequest (props, callback);
@@ -381,7 +382,7 @@ pkg.browsers.list = promisify ((callback) => {
 pkg.browsers.get = promisify ((browserId, callback) => {
   const props = {
     method: 'GET',
-    path: 'browsers/' + browserId
+    path: 'browsers/' + browserId,
   };
 
   apiRequest (props, callback);
@@ -400,7 +401,7 @@ pkg.browsers.get = promisify ((browserId, callback) => {
 pkg.account.status = promisify ((callback) => {
   const props = {
     method: 'GET',
-    path: 'status'
+    path: 'status',
   };
 
   apiRequest (props, callback);

@@ -14,13 +14,13 @@ var browser = process.env.GTMETRIX_BROWSER || 3;
 var gtmetrix = app ({
   email: email,
   apikey: apikey,
-  timeout: timeout
+  timeout: timeout,
 });
 
 var cache = {
   url: 'http://example.net/',
   location,
-  browser
+  browser,
 };
 
 
@@ -200,7 +200,7 @@ dotest.add ('Callback - Error: request failed (timeout)', test => {
   var tmp = app ({
     email: email,
     apikey: apikey,
-    timeout: 1
+    timeout: 1,
   });
 
   tmp.account.status ((err, data) => {
