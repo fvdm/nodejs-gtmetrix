@@ -1,8 +1,8 @@
 {
   "author": {
-    "name": "Franklin van de Meent",
-    "email": "fr@nkl.in",
-    "url": "https://fra.nkl.in"
+    "name": "Franklin",
+    "email": "info@fvdm.com",
+    "url": "https://fvdm.com"
   },
   "name": "gtmetrix",
   "description": "Run and access GTmetrix tests to measure website performance (unofficial)",
@@ -23,7 +23,7 @@
     "dotest": "^2.3.0"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=12"
   },
   "keywords": [
     "api",
